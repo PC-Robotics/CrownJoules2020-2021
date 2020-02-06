@@ -121,58 +121,53 @@ public class TripleBlockRed extends LinearOpMode {
                 30,7);
         grabbingBlock();
         takeBreak();
-        takeBreak();
-        encoderDrive(0.9,-14,-14,-14,
-                -14,7);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
         encoderRightTurn();
+        miniBreak();
         gyroRight();
         encoderDrive(0.5,39,39,39,
                 39,7);
         letGoBlock();
         takeBreak();
-        takeBreak();
-        takeBreak();
-        encoderDrive(0.5,-47,-47,-47,
-                -47,7);
+        encoderDrive(0.5,-46,-46,-46, //47 orig
+                -46,7);
         encoderLeftTurn();
+        miniBreak();
         headingCalibrate();
-        encoderDrive(0.3,14,14, 14,
-                14,7);
+        encoderDrive(0.3,12,12, 12,
+                12,7);
         grabbingBlock();
         takeBreak();
-        takeBreak();
-        encoderDrive(0.9,-14,-14,-14,
-                -14,7);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
         encoderRightTurn();
+        miniBreak();
         gyroRight();
         encoderDrive(0.5,47,47,47,
                 47,7);
         letGoBlock();
         takeBreak();
-        takeBreak();
-        takeBreak();
-        encoderDrive(0.5,-55,-55,-55,
-                -55,7);
+        encoderDrive(0.5,-54,-53,-53, //55 orig
+                -53,7);
         encoderLeftTurn();
+        miniBreak();
         headingCalibrate();
-        encoderDrive(0.3,12,12,12,
-                12,7);
+        encoderDrive(0.3,14,14,14,
+                14,7);
         grabbingBlock();
         takeBreak();
-        takeBreak();
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
+        encoderDrive(0.9,-18,-18,-18,
+                -18,7);
         encoderRightTurn();
+        miniBreak();
         gyroRight();
-        encoderDrive(0.5,55,55,55,
-                55,7);
+        encoderDrive(0.5,58,58,58,
+                58,7);
         letGoBlock();
         takeBreak();
-        takeBreak();
         encoderDrive(0.9,-12,-12,-12,
                 -12,7);
-        takeBreak();
-        headingCalibrate();
 
 
 
@@ -252,7 +247,6 @@ public class TripleBlockRed extends LinearOpMode {
         double heading =  angles.firstAngle;
 
         if (heading < 0) {
-
             while (heading < 0) { //neg
 
 
@@ -357,17 +351,16 @@ public class TripleBlockRed extends LinearOpMode {
     //TWEAK VALUES
     public void encoderRightTurnEnd() {
 
-        encoderDrive(0.6,1075,-1075,1075,
-                -1075,7);
+        encoderDrive(0.6,28,-28,28,
+                -28,7);
 
     }
 
     //TWEAK VALUES
     public void encoderLeftTurnEnd() {
 
-        encoderDrive(0.6,-1075,1075,-1075,
-                1075,7);
-
+        encoderDrive(0.6,-28,28,-28,
+                28,7);
     }
 
     public void gyroLeft() {
@@ -620,9 +613,18 @@ public class TripleBlockRed extends LinearOpMode {
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
         robot.rightBack.setPower(0.0);
-        sleep(500);
+        sleep(800);
     }
 
+    public void miniBreak() {
+
+        robot.leftFront.setPower(0.0);
+        robot.rightFront.setPower(0.0);
+        robot.leftBack.setPower(0.0);
+        robot.rightBack.setPower(0.0);
+        sleep(200);
+
+    }
     public void grabbingBlock() {
 
         clawPosition = 0.6;

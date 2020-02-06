@@ -136,7 +136,7 @@ public class MecanumDrive extends LinearOpMode {
 
             if (gamepad2.x && grabberVal) {
 
-                clawPosition += 0.05;
+                clawPosition += 0.04;
                 grabberVal = false;
 
 
@@ -144,7 +144,7 @@ public class MecanumDrive extends LinearOpMode {
             }
             else if (gamepad2.y && grabberVal) {
 
-                clawPosition -= 0.05;
+                clawPosition -= 0.04;
                 grabberVal = false;
             }
 
