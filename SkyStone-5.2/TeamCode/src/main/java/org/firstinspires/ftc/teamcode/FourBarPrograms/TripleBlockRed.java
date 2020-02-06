@@ -120,52 +120,52 @@ public class TripleBlockRed extends LinearOpMode {
         encoderDrive(0.3,30,30,30,
                 30,7);
         grabbingBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.9,-12,-12,-12,
                 -12,7);
         encoderRightTurn();
-        miniBreak();
+        takeBreak(200);
         gyroRight();
         encoderDrive(0.5,39,39,39,
                 39,7);
         letGoBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.5,-46,-46,-46, //47 orig
                 -46,7);
         encoderLeftTurn();
-        miniBreak();
+        takeBreak(200);
         headingCalibrate();
         encoderDrive(0.3,12,12, 12,
                 12,7);
         grabbingBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.9,-12,-12,-12,
                 -12,7);
         encoderRightTurn();
-        miniBreak();
+        takeBreak(200);
         gyroRight();
         encoderDrive(0.5,47,47,47,
                 47,7);
         letGoBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.5,-54,-53,-53, //55 orig
                 -53,7);
         encoderLeftTurn();
-        miniBreak();
+        takeBreak(200);
         headingCalibrate();
         encoderDrive(0.3,14,14,14,
                 14,7);
         grabbingBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.9,-18,-18,-18,
                 -18,7);
         encoderRightTurn();
-        miniBreak();
+        takeBreak(200);
         gyroRight();
         encoderDrive(0.5,58,58,58,
                 58,7);
         letGoBlock();
-        takeBreak();
+        takeBreak(800);
         encoderDrive(0.9,-12,-12,-12,
                 -12,7);
 
@@ -607,24 +607,16 @@ public class TripleBlockRed extends LinearOpMode {
 
     }
 
-    public void takeBreak() {
+    public void takeBreak(int sleepTime) {
 
         robot.leftFront.setPower(0.0);
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
         robot.rightBack.setPower(0.0);
-        sleep(800);
+        sleep(sleepTime);
     }
 
-    public void miniBreak() {
 
-        robot.leftFront.setPower(0.0);
-        robot.rightFront.setPower(0.0);
-        robot.leftBack.setPower(0.0);
-        robot.rightBack.setPower(0.0);
-        sleep(200);
-
-    }
     public void grabbingBlock() {
 
         clawPosition = 0.6;
