@@ -122,8 +122,8 @@ public class TripleBlockRed extends LinearOpMode {
         grabbingBlock();
         takeBreak();
         takeBreak();
-        encoderDrive(0.9,-8,-8,-8,
-                -8,7);
+        encoderDrive(0.9,-14,-14,-14,
+                -14,7);
         encoderRightTurn();
         gyroRight();
         encoderDrive(0.5,39,39,39,
@@ -136,13 +136,13 @@ public class TripleBlockRed extends LinearOpMode {
                 -47,7);
         encoderLeftTurn();
         headingCalibrate();
-        encoderDrive(0.3,8,8,8,
-                8,7);
+        encoderDrive(0.3,14,14, 14,
+                14,7);
         grabbingBlock();
         takeBreak();
         takeBreak();
-        encoderDrive(0.9,-8,-8,-8,
-                -8,7);
+        encoderDrive(0.9,-14,-14,-14,
+                -14,7);
         encoderRightTurn();
         gyroRight();
         encoderDrive(0.5,47,47,47,
@@ -155,13 +155,13 @@ public class TripleBlockRed extends LinearOpMode {
                 -55,7);
         encoderLeftTurn();
         headingCalibrate();
-        encoderDrive(0.3,8,8,8,
-                8,7);
+        encoderDrive(0.3,12,12,12,
+                12,7);
         grabbingBlock();
         takeBreak();
         takeBreak();
-        encoderDrive(0.9,-8,-8,-8,
-                -8,7);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
         encoderRightTurn();
         gyroRight();
         encoderDrive(0.5,55,55,55,
@@ -169,8 +169,8 @@ public class TripleBlockRed extends LinearOpMode {
         letGoBlock();
         takeBreak();
         takeBreak();
-        encoderDrive(0.9,-8,-8,-8,
-                -8,7);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
         takeBreak();
         headingCalibrate();
 
