@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FourBarPrograms;
+package InverseStackerPrograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -23,6 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.FourBarPrograms.MecanumHardware;
 
 
 import java.util.ArrayList;
@@ -35,11 +36,12 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="x3BlockRed", group="TankBot")
-public class TripleBlockRed extends LinearOpMode {
+@Autonomous(name="BLoadRedBlocks", group="TankBot")
+public class InverseStackerBlockAutoRed extends LinearOpMode {
+
     double clawPosition  = 0.5;
 
-    MecanumHardware robot = new MecanumHardware();
+    StackerHardware robot = new StackerHardware();
 
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false;
@@ -128,46 +130,7 @@ public class TripleBlockRed extends LinearOpMode {
         gyroRight();
         encoderDrive(0.5,39,39,39,
                 39,7);
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.5,-46,-46,-46, //47 orig
-                -46,7);
-        encoderLeftTurn();
-        takeBreak(200);
-        headingCalibrate();
-        encoderDrive(0.3,12,12, 12,
-                12,7);
-        grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
-        encoderRightTurn();
-        takeBreak(200);
-        gyroRight();
-        encoderDrive(0.5,47,47,47,
-                47,7);
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.5,-54,-53,-53, //55 orig
-                -53,7);
-        encoderLeftTurn();
-        takeBreak(200);
-        headingCalibrate();
-        encoderDrive(0.3,14,14,14,
-                14,7);
-        grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-18,-18,-18,
-                -18,7);
-        encoderRightTurn();
-        takeBreak(200);
-        gyroRight();
-        encoderDrive(0.5,58,58,58,
-                58,7);
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
+
 
 
 
@@ -619,19 +582,12 @@ public class TripleBlockRed extends LinearOpMode {
 
     public void grabbingBlock() {
 
-        clawPosition = 0.6;
-        clawPosition = Range.clip(clawPosition, 0, 1);
-        robot.grabber.setPosition(clawPosition);
+        robot.leftIntake.setPower(1.0);
+        robot.rightIntake.setPower(1.0);
+        sleep(5000);
 
     }
 
-    public void letGoBlock() {
-
-        clawPosition = 0.5;
-        clawPosition = Range.clip(clawPosition, 0, 1);
-        robot.grabber.setPosition(clawPosition);
-
-    }
 
     public void liftingUp() {
 
