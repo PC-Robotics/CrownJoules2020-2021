@@ -1,4 +1,4 @@
-package InverseStackerPrograms;
+package org.firstinspires.ftc.teamcode.InverseStackerPrograms;
 
 import android.graphics.drawable.GradientDrawable;
 
@@ -24,9 +24,11 @@ public class StackerHardware {
     public DcMotor leftIntake = null;
     public DcMotor rightIntake = null;
     public CRServo blockPlacer = null; //MAY NEED 2
+    public  Servo grabber = null;
+    //public CRServo blockPlacerRight = null;
     public  Servo towerGrabLeft = null;
     public  Servo towerGrabRight = null;
-
+    public DcMotor capstoneLift = null;
 
 
 
@@ -60,6 +62,7 @@ public class StackerHardware {
         leftIntake = hwMap.get(DcMotor.class, "left_intake");
         rightIntake = hwMap.get(DcMotor.class, "right_intake");
         blockPlacer = hwMap.get(CRServo.class, "block_placer");
+        //capstoneLift = hwMap.get(DcMotor.class, "capstone_lift");
         towerGrabLeft = hwMap.get(Servo.class, "grab_left");
         towerGrabRight = hwMap.get(Servo.class, "grab_right");
         lift = hwMap.get(DcMotor.class, "lift");
@@ -74,12 +77,14 @@ public class StackerHardware {
         lift.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(DcMotor.Direction.FORWARD);
         leftIntake.setDirection(DcMotor.Direction.REVERSE);
+        //capstoneLift.setDirection(DcMotor.Direction.FORWARD);
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //capstoneLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         leftFront.setPower(0);

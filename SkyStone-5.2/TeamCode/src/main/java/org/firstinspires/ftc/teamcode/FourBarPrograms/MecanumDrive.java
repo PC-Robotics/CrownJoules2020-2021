@@ -56,41 +56,46 @@ public class MecanumDrive extends LinearOpMode {
                     v3 = v3 * 0.2;
                     v4 = v4 * 0.2;
 
-                } */
-            double motorCoeff = 1.2;
-            double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-            double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-            double rightX = gamepad1.right_stick_x;
-            double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
-            double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
-            double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
-            double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
-            if (gamepad1.right_bumper) {
-
-                fld = fld * 0.4;
-                frd = frd * 0.4;
-                bld = bld * 0.4;
-                brd = brd * 0.4;
-
-            }
-
-
-            robot.leftFront.setPower(fld);
-            robot.rightFront.setPower(frd);
-            robot.leftBack.setPower(bld);
-            robot.rightBack.setPower(brd);
-
-
-                /*LOSER VERSION
-                double r = Math.hypot(gamepad1.right_stick_x, -gamepad1.left_stick_y);
-                double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
-                double rightX = gamepad1.left_stick_x; //Mess with 0.5 value
-                double v1 = r * Math.cos(robotAngle) + rightX;
-                double v2 = r * Math.sin(robotAngle) - rightX;
-                double v3 = r * Math.sin(robotAngle) + rightX;
-                double v4 = r * Math.cos(robotAngle) - rightX;
+                }
                  */
+                if(gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
+                    double motorCoeff = 1.2;
+                    double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+                    double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+                    double rightX = gamepad1.right_stick_x;
+                    double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
+                    double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
+                    double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
+                    double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
+                    if (gamepad1.right_bumper) {
 
+                        fld = fld * 0.4;
+                        frd = frd * 0.4;
+                        bld = bld * 0.4;
+                        brd = brd * 0.4;
+
+                    }
+
+
+                    robot.leftFront.setPower(fld);
+                    robot.rightFront.setPower(frd);
+                    robot.leftBack.setPower(bld);
+                    robot.rightBack.setPower(brd);
+
+                    telemetry.addData("leftFront",  "%.2f", fld);
+                    telemetry.addData("rightFront", "%.2f", frd);
+                    telemetry.addData("leftBack",  "%.2f", bld);
+                    telemetry.addData("rightBack", "%.2f", brd);
+                    telemetry.addData("grabber", "%.2f", clawPosition);
+
+                }
+                else {
+                    robot.leftFront.setPower(0);
+                    robot.rightFront.setPower(0);
+                    robot.leftBack.setPower(0);
+                    robot.rightBack.setPower(0);
+                }
+            }
 
 
 
@@ -100,7 +105,7 @@ public class MecanumDrive extends LinearOpMode {
             {
                 double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
                 double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-                double rightX = -gamepad1.right_stick_x;
+                double rightX = gamepad1.right_stic-k_x;
                 //left motor
                 final double v1 = r * Math.cos(robotAngle) + rightX * motorPower;
                 //right motor
@@ -175,18 +180,12 @@ public class MecanumDrive extends LinearOpMode {
                 robot.lift.setPower(0.0);
             } */
 
-
-            // Send telemetry message to signify robot running;
-            telemetry.addData("leftFront",  "%.2f", fld);
-            telemetry.addData("rightFront", "%.2f", frd);
-            telemetry.addData("leftBack",  "%.2f", bld);
-            telemetry.addData("rightBack", "%.2f", brd);
-            telemetry.addData("grabber", "%.2f", clawPosition);
             //telemetry.addData("slowmode", "%.2f", slowModeVal);
             telemetry.update();
 
-            // Pace this loop so jaw action is reasonable speed.
-            sleep(50);
-        }
+        // Pace this loop so jaw action is reasonable speed.
+        //sleep(50);
     }
 }
+
+
