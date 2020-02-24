@@ -62,6 +62,10 @@ public class StackerHardware {
         blockPlacer = hwMap.get(CRServo.class, "block_placer");
         towerGrabLeft = hwMap.get(Servo.class, "grab_left");
         towerGrabRight = hwMap.get(Servo.class, "grab_right");
+
+
+
+
         lift = hwMap.get(DcMotor.class, "lift");
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
         imu = hwMap.get(BNO055IMU.class, "imu");

@@ -20,9 +20,11 @@ public class StackerDrive extends LinearOpMode {
         boolean intakeValOut = true;
         boolean toggleIn = true;
         boolean toggleOut = true;
-        ElapsedTime timer  = new ElapsedTime();
-        double placerSpeed = 0.0;
-        boolean placerVal = true;
+        boolean intakeValIn2 = true;
+        boolean intakeValOut2 = true;
+        boolean toggleIn2 = true;
+        boolean toggleOut2 = true;
+
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -98,38 +100,37 @@ public class StackerDrive extends LinearOpMode {
                 toggleOut = true; // Button has been released, so this allows a re-press to activate the code above.
             }
 
-            if (gamepad2.a && placerVal) {
-
-                timer.reset();
-                placerSpeed = 0.5;
-                placerVal = false;
 
 
-            }
-            else if (gamepad2.b && placerVal) {
 
-                timer.reset();
-                placerSpeed = -0.5;
-                placerVal = false;
-
-
-            }
-            if (!gamepad2.a && !gamepad2.b) {
-
-                placerVal = true;
-
+            if (toggleIn2 && gamepad2.a) {  // Only execute once per Button push
+                toggleIn2 = false;  // Prevents this section of code from being called again until the Button is released and re-pressed
+                intakeValOut2 = true;
+                if (intakeValIn2) {  // Decide which way to set the motor this time through (or use this as a motor value instead)
+                    intakeValIn2= false;
+                    robot.blockPlacer.setPower(0.5);
+                } else {
+                    intakeValIn2= true;
+                    robot.blockPlacer.setPower(0.0);
+                }
+            } else if(gamepad2.a == false) {
+                toggleIn2 = true; // Button has been released, so this allows a re-press to activate the code above.
             }
 
-
-            if(timer.milliseconds() < 750) {
-                robot.blockPlacer.setPower(placerSpeed);
-
+            if (toggleOut2 && gamepad2.b) {  // Only execute once per Button push
+                toggleOut2 = false;  // Prevents this section of code from being called again until the Button is released and re-pressed
+                intakeValIn2 = true;
+                if (intakeValOut2) {  // Decide which way to set the motor this time through (or use this as a motor value instead)
+                    intakeValOut2 = false;
+                    robot.blockPlacer.setPower(-0.5);
+                } else {
+                    intakeValOut2 = true;
+                    robot.blockPlacer.setPower(0.0);
+                }
+            } else if(gamepad2.b == false) {
+                toggleOut2 = true; // Button has been released, so this allows a re-press to activate the code above.
             }
-            else {
 
-                robot.blockPlacer.setPower(0.0);
-
-            }
 
 
             if (gamepad1.x) {
