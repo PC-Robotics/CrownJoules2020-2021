@@ -1,4 +1,4 @@
-package InverseStackerPrograms;
+package org.firstinspires.ftc.teamcode.InverseStackerPrograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -36,7 +36,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="BLoadRedBlocks", group="TankBot")
+@Autonomous(name="BlockAutoAttempt", group="TankBot")
 public class InverseStackerBlockAutoRed extends LinearOpMode {
 
     double clawPosition  = 0.5;
@@ -130,11 +130,6 @@ public class InverseStackerBlockAutoRed extends LinearOpMode {
         gyroRight();
         encoderDrive(0.5,39,39,39,
                 39,7);
-
-
-
-
-
 
     }
 
