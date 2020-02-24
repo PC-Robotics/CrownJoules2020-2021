@@ -50,8 +50,8 @@ public class StackerDrive extends LinearOpMode {
                 double rightX = gamepad1.right_stick_x;
                 double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
                 double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
-                double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
-                double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
+                double bld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //sin
+                double brd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //cos
                 if (gamepad1.right_bumper) {
 
                     fld = fld * 0.4;
@@ -60,8 +60,6 @@ public class StackerDrive extends LinearOpMode {
                     brd = brd * 0.4;
 
                 }
-
-
                 robot.leftFront.setPower(fld);
                 robot.rightFront.setPower(frd);
                 robot.leftBack.setPower(bld);
@@ -86,8 +84,8 @@ public class StackerDrive extends LinearOpMode {
                 intakeValOut = true;
                 if (intakeValIn) {  // Decide which way to set the motor this time through (or use this as a motor value instead)
                     intakeValIn = false;
-                    robot.leftIntake.setPower(1);
-                    robot.rightIntake.setPower(1);
+                    robot.leftIntake.setPower(.5);
+                    robot.rightIntake.setPower(.5);
                 } else {
                     intakeValIn = true;
                     robot.leftIntake.setPower(0);
@@ -102,8 +100,8 @@ public class StackerDrive extends LinearOpMode {
                 intakeValIn = true;
                 if (intakeValOut) {  // Decide which way to set the motor this time through (or use this as a motor value instead)
                     intakeValOut = false;
-                    robot.leftIntake.setPower(-1);
-                    robot.rightIntake.setPower(-1);
+                    robot.leftIntake.setPower(-.5);
+                    robot.rightIntake.setPower(-.5);
                 } else {
                     intakeValOut = true;
                     robot.leftIntake.setPower(0);
@@ -113,7 +111,7 @@ public class StackerDrive extends LinearOpMode {
                 toggleOut = true; // Button has been released, so this allows a re-press to activate the code above.
             }
 
-            /*
+
             if (gamepad2.a && placerVal) {
                 timer.reset();
                 placerSpeed = 0.5;
@@ -139,7 +137,10 @@ public class StackerDrive extends LinearOpMode {
                 robot.blockPlacer.setPower(0.0);
             }
 
-            */
+
+
+
+            //blockPlacingModule
             boolean blockPlacerBoolean = true;
             if(gamepad2.a && blockPlacerBoolean)
             {
@@ -167,11 +168,75 @@ public class StackerDrive extends LinearOpMode {
                 robot.lift.setPower(0.0);
             }
 
+            //module for sideBlocks... note that the winch is gonna take some trial and error with!
+            boolean sideDropper = true;
+            double sidePosition = .7;
+            if(gamepad2.left_bumper && sideDropper)
+            {
+                sideDropper = false;
+                robot.sideDropper.setPosition(sidePosition);
+            }
+            else if(gamepad2.left_bumper && !sideDropper)
+            {
+                sideDropper = true;
+                robot.sideDropper.setPosition(0);
+            }
 
-            //x
-            //y
+            //extender module
+            double extenderPower = .7;
+            if(gamepad2.b) {
+                robot.extender.setPower(extenderPower);
+            }
+            else if(gamepad2.right_bumper)
+            {
+                robot.extender.setPower(-extenderPower);
+            }
+            else
+                robot.extender.setPower(0.0);
 
-            // Send telemetry message to signify robot running;
+            //capstone lift Module
+            double capstoneLiftMotorPower = .09;
+            if(Math.abs(gamepad2.right_stick_y) > .2)
+            {
+                if(gamepad2.right_stick_y > 0)
+                    robot.capstoneLift.setPower(capstoneLiftMotorPower);
+                else
+                    robot.capstoneLift.setPower(-capstoneLiftMotorPower);
+            }
+            else
+                robot.capstoneLift.setPower(0);
+            //capstone pivot lift module
+            double capstonePivotPower = .7;
+            if(gamepad2.right_trigger > .1)
+                robot.capstonePivot.setPower(capstonePivotPower);
+            else if (gamepad2.left_trigger > .1)
+                robot.capstonePivot.setPower(-capstonePivotPower);
+            else
+                robot.capstonePivot.setPower(0.0);
+
+            /*
+                Recap:
+                Gamepad1:
+                Driving with mecanum and rotation
+
+                Gamepad2:
+                leftStick controls regular lift
+
+                x - block intake with motored wheels
+                y - block output with motored wheels (idk if we need this but helpful)
+                a - block placement module
+
+                b - extends the extender for side dropper
+                right bumper - retracts the extender for side dropper
+                left bumper - drops it down...
+
+                right stick controls capstone lift
+                right trigger rotates capstone pivot right
+                left trigger rotates capstone pivot left
+                (all buttons are set on toggle for now)
+             */
+
+
             telemetry.update();
 
             // Pace this loop so jaw action is reasonable speed.

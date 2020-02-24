@@ -29,7 +29,11 @@ public class StackerHardware {
     public  Servo towerGrabLeft = null;
     public  Servo towerGrabRight = null;
     public DcMotor capstoneLift = null;
+    public Servo sideDropper = null;
+    public CRServo extender = null;
+    public CRServo capstonePivot = null;
 
+            //note: Please double check everything is safe hardware mapping wise!!!
 
 
     WebcamName webcamName = null; //MIGHT NOT USE
@@ -63,6 +67,9 @@ public class StackerHardware {
         rightIntake = hwMap.get(DcMotor.class, "right_intake");
         blockPlacer = hwMap.get(CRServo.class, "block_placer");
         //capstoneLift = hwMap.get(DcMotor.class, "capstone_lift");
+        //sideDropper = hwMap.get(Servo.class, "side_dropper");
+        //extender = hwMap.get(CRServo.class, "extender");
+        //capstonePivot = hwMap.get(CRServo.class, "capstonePivot");
         towerGrabLeft = hwMap.get(Servo.class, "grab_left");
         towerGrabRight = hwMap.get(Servo.class, "grab_right");
         lift = hwMap.get(DcMotor.class, "lift");
@@ -72,8 +79,8 @@ public class StackerHardware {
         //imu = hwMap.get(BNO055IMU.class, "imu");
         leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         lift.setDirection(DcMotor.Direction.FORWARD);
         rightIntake.setDirection(DcMotor.Direction.FORWARD);
         leftIntake.setDirection(DcMotor.Direction.REVERSE);
@@ -96,11 +103,13 @@ public class StackerHardware {
         towerGrabLeft.setPosition(MID_SERVO);
         towerGrabRight.setPosition(MID_SERVO);
 
-        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// a
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// b
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); //c
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // abc were set without encoders
+        // why is this one running with encoders and the others aren't... ^^^
         lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //capstoneLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
