@@ -113,14 +113,13 @@ public class StackerDrive extends LinearOpMode {
 
 
             if (gamepad2.a && placerVal) {
-                timer.reset();
-                placerSpeed = 0.5;
+
+                robot.blockPlacer.setPosition(1);
                 placerVal = false;
             }
             else if (gamepad2.b && placerVal) {
 
-                timer.reset();
-                placerSpeed = -0.5;
+                robot.blockPlacer.setPosition(0.4);
                 placerVal = false;
 
 
@@ -130,30 +129,6 @@ public class StackerDrive extends LinearOpMode {
             }
 
 
-            if(timer.milliseconds() < 750) {
-                robot.blockPlacer.setPower(placerSpeed);
-            }
-            else {
-                robot.blockPlacer.setPower(0.0);
-            }
-
-
-
-
-            //blockPlacingModule
-            boolean blockPlacerBoolean = true;
-            if(gamepad2.a && blockPlacerBoolean)
-            {
-                blockPlacerBoolean = false;
-                timer.reset();
-                robot.blockPlacer.setPower(.7);
-            }
-            else if(gamepad2.a && !blockPlacerBoolean)
-            {
-                blockPlacerBoolean = true;
-                timer.reset();
-                robot.blockPlacer.setPower(0.0);
-            }
 
             //lifting module....
             if (Math.abs(gamepad2.left_stick_y) > 0.2) {
@@ -170,30 +145,23 @@ public class StackerDrive extends LinearOpMode {
 
             //module for sideBlocks... note that the winch is gonna take some trial and error with!
             boolean sideDropper = true;
-            double sidePosition = .7;
-            if(gamepad2.left_bumper && sideDropper)
-            {
-                sideDropper = false;
-                robot.sideDropper.setPosition(sidePosition);
-            }
-            else if(gamepad2.left_bumper && !sideDropper)
-            {
-                sideDropper = true;
+            if (gamepad2.left_bumper)
                 robot.sideDropper.setPosition(0);
-            }
+            else
+                robot.sideDropper.setPosition(.7);
 
             //extender module
             double extenderPower = .7;
-            if(gamepad2.b) {
+            if(gamepad2.dpad_left) {
                 robot.extender.setPower(extenderPower);
             }
-            else if(gamepad2.right_bumper)
+            else if(gamepad2.dpad_right)
             {
                 robot.extender.setPower(-extenderPower);
             }
             else
                 robot.extender.setPower(0.0);
-
+/*
             //capstone lift Module
             double capstoneLiftMotorPower = .09;
             if(Math.abs(gamepad2.right_stick_y) > .2)
@@ -205,6 +173,7 @@ public class StackerDrive extends LinearOpMode {
             }
             else
                 robot.capstoneLift.setPower(0);
+
             //capstone pivot lift module
             double capstonePivotPower = .7;
             if(gamepad2.right_trigger > .1)
@@ -213,7 +182,7 @@ public class StackerDrive extends LinearOpMode {
                 robot.capstonePivot.setPower(-capstonePivotPower);
             else
                 robot.capstonePivot.setPower(0.0);
-
+*/
             /*
                 Recap:
                 Gamepad1:
@@ -233,7 +202,7 @@ public class StackerDrive extends LinearOpMode {
                 right stick controls capstone lift
                 right trigger rotates capstone pivot right
                 left trigger rotates capstone pivot left
-                (all buttons are set on toggle for now)
+
              */
 
 

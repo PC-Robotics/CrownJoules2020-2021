@@ -23,7 +23,7 @@ public class StackerHardware {
     public DcMotor  lift  = null; //MAY NEED 2
     public DcMotor leftIntake = null;
     public DcMotor rightIntake = null;
-    public CRServo blockPlacer = null; //MAY NEED 2
+    public Servo blockPlacer = null; //MAY NEED 2
     public  Servo grabber = null;
     //public CRServo blockPlacerRight = null;
     public  Servo towerGrabLeft = null;
@@ -65,13 +65,17 @@ public class StackerHardware {
         rightBack = hwMap.get(DcMotor.class, "right_back");
         leftIntake = hwMap.get(DcMotor.class, "left_intake");
         rightIntake = hwMap.get(DcMotor.class, "right_intake");
-        blockPlacer = hwMap.get(CRServo.class, "block_placer");
+        blockPlacer = hwMap.get(Servo.class, "block_placer");
         //capstoneLift = hwMap.get(DcMotor.class, "capstone_lift");
-        //sideDropper = hwMap.get(Servo.class, "side_dropper");
-        //extender = hwMap.get(CRServo.class, "extender");
+        sideDropper = hwMap.get(Servo.class, "side_dropper");
+        extender = hwMap.get(CRServo.class, "extender");
         //capstonePivot = hwMap.get(CRServo.class, "capstonePivot");
         towerGrabLeft = hwMap.get(Servo.class, "grab_left");
         towerGrabRight = hwMap.get(Servo.class, "grab_right");
+
+
+
+
         lift = hwMap.get(DcMotor.class, "lift");
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -102,7 +106,12 @@ public class StackerHardware {
 
         towerGrabLeft.setPosition(MID_SERVO);
         towerGrabRight.setPosition(MID_SERVO);
+<<<<<<< HEAD
         blockPlacer.setPosition();
+=======
+        blockPlacer.setPosition((MID_SERVO));
+        sideDropper.setPosition(MID_SERVO);
+>>>>>>> 05a0a1ec2b8f1d989700d6184c37b72c2c07aa6e
 
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// a
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// b
@@ -114,7 +123,7 @@ public class StackerHardware {
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-      /*  leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        /*leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER); */
