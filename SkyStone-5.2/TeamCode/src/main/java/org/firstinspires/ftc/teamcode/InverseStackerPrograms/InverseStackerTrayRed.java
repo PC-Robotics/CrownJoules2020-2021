@@ -20,6 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import java.nio.file.StandardWatchEventKinds;
@@ -104,20 +105,20 @@ public class InverseStackerTrayRed extends LinearOpMode {
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
 
-        encoderDrive(0.4,667,667,667,
-                667,7);
+        encoderDrive(0.4,400,400,400,
+                400,7);
         takeBreak();
-        encoderDrive(0.4,-1500,1500,1500,
-                -1500,7);
+        encoderDrive(0.4,-1600,1600,-1600, //orig out
+                1600,7);
         headingCalibrate();
         grabTray();
         takeBreak();
-        encoderDrive(0.4,1550,-1550,-1550,
-                1550,7);
+        encoderDrive(0.6,3000,-3000,3000, //orig in
+                -3000,7);
         letGoTray();
         headingCalibrate();
-        encoderDrive(0.4,-3000,-3000,-3000,
-                -3000,7);
+        encoderDrive(0.4,-2000,-2000,-2000,
+                -2000,7);
 
     }
 
@@ -198,8 +199,8 @@ public class InverseStackerTrayRed extends LinearOpMode {
 
                 robot.leftFront.setPower(-0.1);
                 robot.rightFront.setPower(0.1);
-                robot.leftBack.setPower(-0.1);
-                robot.rightBack.setPower(0.1);
+                robot.leftBack.setPower(0.1);
+                robot.rightBack.setPower(-0.1);
                 telemetry.update();
                 angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -213,8 +214,8 @@ public class InverseStackerTrayRed extends LinearOpMode {
 
                 robot.leftFront.setPower(0.1);
                 robot.rightFront.setPower(-0.1);
-                robot.leftBack.setPower(0.1);
-                robot.rightBack.setPower(-0.1);
+                robot.leftBack.setPower(-0.1);
+                robot.rightBack.setPower(0.1);
                 telemetry.update();
                 angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
