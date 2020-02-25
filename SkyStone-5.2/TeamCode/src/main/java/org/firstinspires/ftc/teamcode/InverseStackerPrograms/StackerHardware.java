@@ -106,12 +106,8 @@ public class StackerHardware {
 
         towerGrabLeft.setPosition(MID_SERVO);
         towerGrabRight.setPosition(MID_SERVO);
-<<<<<<< HEAD
-        blockPlacer.setPosition();
-=======
         blockPlacer.setPosition((MID_SERVO));
         sideDropper.setPosition(MID_SERVO);
->>>>>>> 05a0a1ec2b8f1d989700d6184c37b72c2c07aa6e
 
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// a
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);// b
