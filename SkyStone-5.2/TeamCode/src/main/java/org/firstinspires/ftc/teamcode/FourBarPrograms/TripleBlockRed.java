@@ -120,7 +120,7 @@ public class TripleBlockRed extends LinearOpMode {
         encoderDrive(0.3,30,30,30,
                 30,7);
         grabbingBlock();
-        takeBreak(800);
+        takeBreak(1000);
         encoderDrive(0.9,-12,-12,-12,
                 -12,7);
         encoderRightTurn();
@@ -135,12 +135,12 @@ public class TripleBlockRed extends LinearOpMode {
         encoderLeftTurn();
         takeBreak(200);
         headingCalibrate();
-        encoderDrive(0.3,12,12, 12,
-                12,7);
+        encoderDrive(0.3,13,13, 13, //12
+                13,7);
         grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
+        takeBreak(1000);
+        encoderDrive(0.9,-13,-13,-13, //12
+                -13,7);
         encoderRightTurn();
         takeBreak(200);
         gyroRight();
@@ -148,22 +148,22 @@ public class TripleBlockRed extends LinearOpMode {
                 47,7);
         letGoBlock();
         takeBreak(800);
-        encoderDrive(0.5,-54,-53,-53, //55 orig
-                -53,7);
+        encoderDrive(0.5,-54,-54,-54, //55 orig
+                -54,7);
         encoderLeftTurn();
         takeBreak(200);
         headingCalibrate();
-        encoderDrive(0.3,14,14,14,
-                14,7);
+        encoderDrive(0.3,16,16,16, //14
+                16,7);
         grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-18,-18,-18,
-                -18,7);
+        takeBreak(1000);
+        encoderDrive(0.9,-19,-19,-19,
+                -19,7);
         encoderRightTurn();
         takeBreak(200);
         gyroRight();
-        encoderDrive(0.5,58,58,58,
-                58,7);
+        encoderDrive(0.5,60,60,60, //58
+                60,7);
         letGoBlock();
         takeBreak(800);
         encoderDrive(0.9,-12,-12,-12,
@@ -619,7 +619,7 @@ public class TripleBlockRed extends LinearOpMode {
 
     public void grabbingBlock() {
 
-        clawPosition = 0.6;
+        clawPosition = 0.58;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
