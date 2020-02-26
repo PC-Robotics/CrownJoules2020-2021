@@ -247,8 +247,6 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
 
         if (heading < 0) {
             while (heading < 0) { //neg
-
-
                 robot.leftFront.setPower(-0.1);
                 robot.rightFront.setPower(0.1);
                 robot.leftBack.setPower(-0.1);
@@ -271,8 +269,6 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
                 telemetry.update();
                 angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
-
-
             }
         }
 
@@ -405,8 +401,6 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
                 telemetry.update();
                 angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
-
-
             }
         }
 
