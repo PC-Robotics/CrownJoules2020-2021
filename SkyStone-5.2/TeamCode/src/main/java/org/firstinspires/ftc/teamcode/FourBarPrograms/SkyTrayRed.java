@@ -24,7 +24,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.FourBarPrograms.MecanumHardware;
 
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 
@@ -37,7 +36,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="Sky+TrayRED", group="TankBot")
+@Autonomous(name="Sky+TrayRED", group="WorkingAuto")
 public class SkyTrayRed extends LinearOpMode {
 
     double clawPosition  = 0.51;

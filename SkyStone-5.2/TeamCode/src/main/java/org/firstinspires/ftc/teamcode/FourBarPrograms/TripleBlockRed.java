@@ -35,7 +35,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="x3BlockRed", group="TankBot")
+@Autonomous(name="x3BlockRed", group="WorkingAuto")
 public class TripleBlockRed extends LinearOpMode {
     double clawPosition  = 0.5;
 
