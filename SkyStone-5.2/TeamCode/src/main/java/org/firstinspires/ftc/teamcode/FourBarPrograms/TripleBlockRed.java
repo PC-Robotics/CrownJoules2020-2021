@@ -119,6 +119,7 @@ public class TripleBlockRed extends LinearOpMode {
 
         encoderDrive(0.3,30,30,30,
                 30,7);
+        //miniLiftingDown();
         grabbingBlock();
         takeBreak(1000);
         encoderDrive(0.9,-12,-12,-12,
@@ -126,17 +127,18 @@ public class TripleBlockRed extends LinearOpMode {
         encoderRightTurn();
         takeBreak(200);
         gyroRight();
-        encoderDrive(0.5,39,39,39,
-                39,7);
+        encoderDrive(0.5,40,40,40,
+                40,7);
         letGoBlock();
         takeBreak(800);
-        encoderDrive(0.5,-46,-46,-46, //47 orig
-                -46,7);
+        encoderDrive(0.5,-47,-47,-47, //47 orig
+                -47,7);
         encoderLeftTurn();
         takeBreak(200);
         headingCalibrate();
         encoderDrive(0.3,13,13, 13, //12
                 13,7);
+        //miniLiftingDown();
         grabbingBlock();
         takeBreak(1000);
         encoderDrive(0.9,-13,-13,-13, //12
@@ -144,30 +146,31 @@ public class TripleBlockRed extends LinearOpMode {
         encoderRightTurn();
         takeBreak(200);
         gyroRight();
-        encoderDrive(0.5,47,47,47,
-                47,7);
+        encoderDrive(0.5,48,48,48,
+                48,7);
         letGoBlock();
         takeBreak(800);
-        encoderDrive(0.5,-54,-54,-54, //55 orig
-                -54,7);
+        encoderDrive(0.5,-55,-55,-55, //55 orig
+                -55,7);
         encoderLeftTurn();
         takeBreak(200);
         headingCalibrate();
         encoderDrive(0.3,16,16,16, //14
                 16,7);
+        //miniLiftingDown();
         grabbingBlock();
         takeBreak(1000);
-        encoderDrive(0.9,-19,-19,-19,
-                -19,7);
+        encoderDrive(0.9,-18,-18,-18, //19
+                -18,7);
         encoderRightTurn();
         takeBreak(200);
         gyroRight();
-        encoderDrive(0.5,60,60,60, //58
-                60,7);
+        encoderDrive(0.5,61,61,61, //58
+                61,7);
         letGoBlock();
         takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
+        encoderDrive(0.9,-13,-13,-13,
+                -13,7);
 
 
 
@@ -619,7 +622,7 @@ public class TripleBlockRed extends LinearOpMode {
 
     public void grabbingBlock() {
 
-        clawPosition = 0.58;
+        clawPosition = 0.59;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
