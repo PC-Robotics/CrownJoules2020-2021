@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.FourBarPrograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -14,22 +18,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-
-import java.util.Locale;
-
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
@@ -37,11 +33,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-
-@Autonomous(name="Sky+TrayRED", group="WorkingAuto")
-public class SkyTrayRed extends LinearOpMode {
+@Autonomous(name="ShaurnavJustTrayBLUE", group="WorkingAuto")
+public class ShaurnavJustTrayRed extends LinearOpMode {
 
     double clawPosition  = 0.51;
+    private final double inchVal = 41.667;
 
     MecanumHardware robot = new MecanumHardware();
 
@@ -82,6 +78,9 @@ public class SkyTrayRed extends LinearOpMode {
     Acceleration gravity;
 
 
+    // State used for updating telemetry
+
+
     @Override
     public void runOpMode() {
 
@@ -102,249 +101,26 @@ public class SkyTrayRed extends LinearOpMode {
 
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
-        // Loop and update the dashboard
         telemetry.update();
-        /*
-        sleepRunning(962);
-        double positionVal = webcamSight();
-        if (positionVal > 0) {
 
-            //DO REST OF STUFF FROM CLOSEST POSITION
-            sleepRunning(1538);
-            grabbingBlock();
-            sleepRunningBack(769);
-            strafeLeft(3000);
-            letGoBlock();
-            strafeRight(5000);
-            sleepRunning(769);
-            grabbingBlock();
-            sleepRunningBack(769);
-            strafeLeft(5000);
-            strafeRight(1000);
-
-
-        }
-        else if (positionVal < 0) {
-
-            strafeRight(667);
-
-            //DO REST OF STUFF FROM CENTER POSITION
-            sleepRunning(1538);
-            grabbingBlock();
-            sleepRunningBack(769);
-            strafeLeft(4000);
-            letGoBlock();
-            strafeRight(6000);
-            sleepRunning(769);
-            grabbingBlock();
-            sleepRunningBack(769);
-            strafeLeft(6000);
-            strafeRight(1000);
-
-        }
-
-        else {
-
-                strafeRight(1334);
-                //DO REST FROM FARTHEST POSITION
-                sleepRunning(1538);
-                grabbingBlock();
-                sleepRunningBack(769);
-                strafeLeft(5000);
-                letGoBlock();
-                strafeRight(7000);
-                sleepRunning(769);
-                grabbingBlock();
-                sleepRunningBack(769);
-                strafeLeft(7000);
-                strafeRight(1000);
-
-
-        }
-        */
-
-        double speedFactor = (1/1.5);
-        double FBFactor = 0.5;
-        sleepRunning((int) (962 * FBFactor));
+        encoderDrive(0.4,-16,16,16,
+                -16,7);
+        headingCalibrate();
+        liftingUp();
+        encoderDrive(0.2,32,32,32,
+                32,7);
         liftingDown();
-        double positionVal = webcamSight();
-        if (positionVal > 0) {
-            //strafeRight((int) (600 * speedFactor));
-            //DO REST OF STUFF FROM CLOSEST POSITION
-           /* sleepRunning((int) (1800 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (3500 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            takeBreak();
-            sleepRunningBack((int) (900 * FBFactor));
-            headingCalibrate();
-            strafeLeft((int) (6175 * speedFactor));
-            headingCalibrate();
-            sleepRunning((int) (900 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (900 * FBFactor));
-            strafeRight((int) (6175 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            strafeLeft((int) (1500 * speedFactor)); */
-
-            strafeRight((int) (600 * speedFactor)); //These may not be totally optimized
-            //78 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (6300 * speedFactor));
-            liftingUp();
-            headingCalibrate();
-            sleepRunning((int) (1800 * FBFactor));
-            letGoBlock();
-            liftingDown();
-            takeBreak();
-            draggerBacker((int) (4300 * FBFactor));
-            takeBreak();
-            miniLiftingUp();
-            strafeLeft((int) (2500 * speedFactor));
-            liftingDown();
-            sleepRunning((int) (2100 * FBFactor)); //May need to be a little more
-            takeBreak();
-            strafeLeft((int) (1700 * speedFactor));
-
-
-
-        }
-        else if (positionVal < 0) {
-
-            /*strafeLeft((int) (400 * speedFactor));
-            //TOTALLY CORRECT
-            //Make sure it can reach with wall
-            //DO REST OF STUFF FROM CENTER POSITION
-            sleepRunning((int) (1800 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (4500 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            takeBreak();
-            sleepRunningBack((int) (900 * FBFactor));
-            headingCalibrate();
-            strafeLeft((int) (7000 * speedFactor));
-            headingCalibrate();
-            sleepRunning((int) (900 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (900 * FBFactor));
-            strafeRight((int) (7150 * speedFactor));
-            lifting2Down();
-            letGoBlock();
-            strafeLeft((int) (1500 * speedFactor)); */
-
-
-
-            strafeLeft((int) (500 * speedFactor));
-            //86 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (6900 * speedFactor));
-            liftingUp();
-            headingCalibrate();
-            sleepRunning((int) (1800 * FBFactor));
-            letGoBlock();
-            liftingDown();
-            takeBreak();
-            draggerBacker((int) (4300 * FBFactor));
-            takeBreak();
-            miniLiftingUp();
-            strafeLeft((int) (2500 * speedFactor));
-            liftingDown();
-            sleepRunning((int) (2100 * FBFactor));
-            takeBreak();
-            strafeLeft((int) (1700 * speedFactor));
-
-
-        }
-
-        else {
-
-            /*strafeLeft((int) (1300 * speedFactor));
-            //DO REST FROM FARTHEST POSITION
-            //GOOD FOR NOW BUT MAYBE CHANGE TO ON THE SITE
-            sleepRunning((int) (1800 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (5500 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            takeBreak();
-            sleepRunningBack((int) (900 * FBFactor));
-            headingCalibrate();
-            strafeLeft((int) (8000 * speedFactor)); //tweak
-            headingCalibrate();
-            sleepRunning((int) (900 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            liftingUp();
-            sleepRunningBack((int) (900 * FBFactor));
-            strafeRight((int) (8000 * speedFactor)); //tweak
-            liftingDown();
-            letGoBlock();
-            strafeLeft((int) (1500 * speedFactor)); //tweak */
-
-
-            //TESTER AUTO FOR 1 BLOCK INTO BUILD SITE
-
-            strafeLeft((int) (1200 * speedFactor));
-            //94 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (7900 * speedFactor));
-            liftingUp();
-            headingCalibrate();
-            sleepRunning((int) (1800 * FBFactor)); //1500 orig
-            letGoBlock();
-            liftingDown();
-            takeBreak();
-            draggerBacker((int) (4300 * FBFactor));
-            takeBreak();
-            miniLiftingUp();
-            strafeLeft((int) (2500 * speedFactor)); //3900 total
-            liftingDown();
-            sleepRunning((int) (2100 * FBFactor));
-            takeBreak();
-            strafeLeft((int) (1700 * speedFactor));
-            //sleepRunning((int) (2300 * FBFactor)); //Go forward enough to be near the bridge but not in it (hit site too)
-            //strafeLeft((int) (1600 * speedFactor)); //3900 total\
-
-
-
-
-
-
-        }
+        takeBreak();
+        draggerEncoder(0.3,-32.4,-32.4,-32.4,
+                -32.4,7);
+        takeBreak();
+        miniLiftingUp();
+        encoderDrive(0.4,36,-36,-36,
+                36,7);
+        miniLiftingDown();
+        takeBreak();
+        encoderDrive(0.4,32,-32,-32,
+                32,7);
 
     }
 
@@ -418,31 +194,181 @@ public class SkyTrayRed extends LinearOpMode {
     public void headingCalibrate() {
         telemetry.update();
         double heading =  angles.firstAngle;
-        while (heading < 0) {
+
+        if (heading < 0) {
+
+            while (heading < -5) {
 
 
-            robot.leftFront.setPower(-0.2);
-            robot.rightFront.setPower(0.2);
-            robot.leftBack.setPower(-0.2);
-            robot.rightBack.setPower(0.2);
-            telemetry.update();
-            heading = angles.firstAngle;
+                robot.leftFront.setPower(-0.1);
+                robot.rightFront.setPower(0.1);
+                robot.leftBack.setPower(-0.1);
+                robot.rightBack.setPower(0.1);
+                telemetry.update();
+                heading = angles.firstAngle;
 
 
+            }
         }
-        while (heading > 0) {
+        else if (heading > 0) {
+            while (heading > 5) {
 
 
-            robot.leftFront.setPower(0.2);
-            robot.rightFront.setPower(-0.2);
-            robot.leftBack.setPower(0.2);
-            robot.rightBack.setPower(-0.2);
-            telemetry.update();
-            heading = angles.firstAngle;
+                robot.leftFront.setPower(0.1);
+                robot.rightFront.setPower(-0.1);
+                robot.leftBack.setPower(0.1);
+                robot.rightBack.setPower(-0.1);
+                telemetry.update();
+                heading = angles.firstAngle;
 
 
+            }
         }
 
+    }
+
+    public void draggerEncoder(double speed,
+                               double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
+                               double timeoutS) {
+        int frontLeftTarget;
+        int frontRightTarget;
+        int backLeftTarget;
+        int backRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInchesFront * inchVal);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInchesFront * inchVal);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInchesBack * inchVal);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInchesBack * inchVal);
+            robot.leftFront.setTargetPosition(frontLeftTarget);
+            robot.rightFront.setTargetPosition(frontRightTarget);
+            robot.leftBack.setTargetPosition(backLeftTarget);
+            robot.rightBack.setTargetPosition(backRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            robot.period.reset();
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+            robot.lift.setPower(Math.abs(speed*2.667));
+
+            //CONTINUE HERE
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (robot.period.seconds() < timeoutS) &&
+                    (robot.leftFront.isBusy() && robot.rightFront.isBusy() && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", frontLeftTarget,  frontLeftTarget, backLeftTarget, backRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition(),
+                        robot.leftBack.getCurrentPosition(),
+                        robot.rightBack.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftBack.setPower(0);
+            robot.rightBack.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+    public void encoderDrive(double speed,
+                             double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
+                             double timeoutS) {
+        int frontLeftTarget;
+        int frontRightTarget;
+        int backLeftTarget;
+        int backRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInchesFront * inchVal);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInchesFront * inchVal);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInchesBack * inchVal);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInchesBack * inchVal);
+            robot.leftFront.setTargetPosition(frontLeftTarget);
+            robot.rightFront.setTargetPosition(frontRightTarget);
+            robot.leftBack.setTargetPosition(backLeftTarget);
+            robot.rightBack.setTargetPosition(backRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            robot.period.reset();
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+
+            //CONTINUE HERE
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (robot.period.seconds() < timeoutS) &&
+                    (robot.leftFront.isBusy() && robot.rightFront.isBusy() && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", frontLeftTarget,  frontLeftTarget, backLeftTarget, backRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition(),
+                        robot.leftBack.getCurrentPosition(),
+                        robot.rightBack.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftBack.setPower(0);
+            robot.rightBack.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //  sleep(250);   // optional pause after each move
+        }
     }
 
     //18.667 in per second
@@ -565,7 +491,7 @@ public class SkyTrayRed extends LinearOpMode {
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
         robot.rightBack.setPower(0.0);
-        sleep(1000);
+        sleep(500);
     }
 
     public void grabbingBlock() {
@@ -593,21 +519,23 @@ public class SkyTrayRed extends LinearOpMode {
 
     public void miniLiftingUp() {
 
-        robot.lift.setPower(-0.4);
-        sleep(100);
+        robot.lift.setPower(-0.5);
+        sleep(50);
 
     }
+
+
 
     public void miniLiftingDown() {
 
         robot.lift.setPower(0.4);
-        sleep(100);
+        sleep(50);
 
     }
 
     public void liftingDown() {
 
-        robot.lift.setPower(0.8);
+        robot.lift.setPower(0.4);
         sleep(300);
 
     }
@@ -615,10 +543,10 @@ public class SkyTrayRed extends LinearOpMode {
     public void draggerBacker(int time) {
 
         robot.lift.setPower(0.6);
-        robot.leftFront.setPower(-0.5);
-        robot.rightFront.setPower(-0.5);
-        robot.leftBack.setPower(-0.5);
-        robot.rightBack.setPower(-0.5);
+        robot.leftFront.setPower(-0.4);
+        robot.rightFront.setPower(-0.4);
+        robot.leftBack.setPower(-0.4);
+        robot.rightBack.setPower(-0.4);
         sleep(time);
 
         robot.leftFront.setPower(0.0);
@@ -906,6 +834,4 @@ public class SkyTrayRed extends LinearOpMode {
         targetsSkyStone.deactivate();
         return 0.0;
     }
-
 }
-

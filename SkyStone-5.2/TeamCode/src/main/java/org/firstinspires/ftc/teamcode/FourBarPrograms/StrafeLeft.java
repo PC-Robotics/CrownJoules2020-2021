@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -32,8 +33,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="Gabe God Real", group="TankBot")
-public class GabeGodReal extends LinearOpMode {
+@Autonomous(name="StrafeRight", group="JankBot")
+public class StrafeLeft extends LinearOpMode {
     double clawPosition  = 0.51;
 
     MecanumHardware robot = new MecanumHardware();
@@ -69,6 +70,8 @@ public class GabeGodReal extends LinearOpMode {
     private float phoneYRotate = 0;
     private float phoneZRotate = 0;
 
+    private final double inchVal = 41.667;
+
 
     // State used for updating telemetry
     Orientation angles;
@@ -91,6 +94,16 @@ public class GabeGodReal extends LinearOpMode {
 
         composeTelemetry();
 
+        robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         waitForStart();
 
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
@@ -98,116 +111,66 @@ public class GabeGodReal extends LinearOpMode {
         // Loop and update the dashboard
         telemetry.update();
 
-        double speedFactor = (1/1.5);
-        double FBFactor = 0.5;
-        sleep(1000);
-        GoBackward(2000);
-        sleep(1000);
-        GoForward(2000);
-        sleep(1000);
-        GoBackward(2000);
-        //double positionVal = webcamSight();
-        /*if (positionVal > 0) {
-            //strafeRight((int) (600 * speedFactor));
-            //DO REST OF STUFF FROM CLOSEST POSITION
-            strafeRight((int) (600 * speedFactor)); //These may not be totally optimized
-            //78 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (4500 * speedFactor)); //3500
-            liftingDown();
-            letGoBlock();
-            strafeLeft((int) (2000 * speedFactor));
-            sleepRunningBack((int) (700 * speedFactor));
-            headingCalibrate();
-            takeBreak();
-            strafeLeft((int) (7000 * speedFactor));
-            headingCalibrate();
-            liftingDown();
-            sleepRunning((int) (1500 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            strafeRight((int) (6200 * speedFactor));
-            letGoBlock();
-            liftingDown();
-            strafeLeft((int) (1500 * speedFactor));
+
+
+        //41.667 ticks/1 inch
+
+        encoderDrive(0.3,30,30,30,
+                30,7);
+        grabbingBlock();
+        miniLiftingUp();
+        takeBreak(800);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
+        //encoderRightTurn();
+        takeBreak(200);
+        //gyroRight();
+        encoderDrive(0.5,39,-39,-39,
+                39,7); //right and left are invesed
+        letGoBlock();
+        takeBreak(800);
+        encoderDrive(0.5,-46,46,46, //47 orig
+                -46,7);
+        //encoderLeftTurn();
+        takeBreak(200);
+        //headingCalibrate();
+        encoderDrive(0.3,12,12, 12,
+                12,7);
+        grabbingBlock();
+        takeBreak(800);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
+        //encoderRightTurn();
+        takeBreak(200);
+        //gyroRight();
+        encoderDrive(0.5,47,-47,-47,
+                47,7);
+        letGoBlock();
+        takeBreak(800);
+        encoderDrive(0.5,-54,53,53, //55 orig
+                -53,7);
+        //encoderLeftTurn();
+        takeBreak(200);
+        //headingCalibrate();
+        encoderDrive(0.3,14,14,14,
+                14,7);
+        grabbingBlock();
+        takeBreak(800);
+        encoderDrive(0.9,-18,-18,-18,
+                -18,7);
+        //encoderRightTurn();
+        takeBreak(200);
+        //gyroRight();
+        encoderDrive(0.5,58,-58,-58,
+                58,7);
+        letGoBlock();
+        takeBreak(800);
+        encoderDrive(0.9,-12,-12,-12,
+                -12,7);
 
 
 
 
-
-        }
-        else if (positionVal < 0) {
-
-            strafeLeft((int) (500 * speedFactor));
-            //86 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (5000 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            strafeLeft((int) (2000 * speedFactor));
-          sleepRunningBack((int) (700 * speedFactor));
-            headingCalibrate();
-            takeBreak();
-            strafeLeft((int) (7500 * speedFactor));
-            headingCalibrate();
-            liftingDown();
-            sleepRunning((int) (1500 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            strafeRight((int) (6700 * speedFactor));
-            letGoBlock();
-            liftingDown();
-            strafeLeft((int) (1500 * speedFactor));
-
-
-        }
-
-        else {
-
-            strafeLeft((int) (1200 * speedFactor));
-            //94 inches from center of block to the building site
-            sleepRunning((int) (2000 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            takeBreak();
-            strafeRight((int) (5500 * speedFactor));
-            liftingDown();
-            letGoBlock();
-            strafeLeft((int) (2000 * speedFactor));
-            sleepRunningBack((int) (700 * speedFactor));
-            headingCalibrate();
-            takeBreak();
-            strafeLeft((int) (8000 * speedFactor));
-            headingCalibrate();
-            liftingDown();
-            sleepRunning((int) (1500 * FBFactor));
-            grabbingBlock();
-            takeBreak();
-            miniLiftingUp();
-            sleepRunningBack((int) (1300 * FBFactor));
-            strafeRight((int) (7200 * speedFactor));
-            letGoBlock();
-            liftingDown();
-            strafeLeft((int) (1500 * speedFactor));
-
-
-        }  */
 
     }
 
@@ -281,36 +244,253 @@ public class GabeGodReal extends LinearOpMode {
     public void headingCalibrate() {
         telemetry.update();
         double heading =  angles.firstAngle;
-        while (heading < 0) {
+
+        if (heading < 0) {
+            while (heading < 0) { //neg
+                robot.leftFront.setPower(-0.1);
+                robot.rightFront.setPower(0.1);
+                robot.leftBack.setPower(-0.1);
+                robot.rightBack.setPower(0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
 
 
-            robot.leftFront.setPower(-0.2);
-            robot.rightFront.setPower(0.2);
-            robot.leftBack.setPower(-0.2);
-            robot.rightBack.setPower(0.2);
-            telemetry.update();
-            heading = angles.firstAngle;
-
-
+            }
         }
-        while (heading > 0) {
+        else if (heading > 0) {
+            while (heading > 0) { //pos
 
 
-            robot.leftFront.setPower(0.2);
-            robot.rightFront.setPower(-0.2);
-            robot.leftBack.setPower(0.2);
-            robot.rightBack.setPower(-0.2);
-            telemetry.update();
-            heading = angles.firstAngle;
-
-
+                robot.leftFront.setPower(0.1);
+                robot.rightFront.setPower(-0.1);
+                robot.leftBack.setPower(0.1);
+                robot.rightBack.setPower(-0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+            }
         }
 
     }
 
+    public void gyroRight() {
+        telemetry.update();
+        double heading =  angles.firstAngle;
+
+        /*while (heading > -90) { //b/w -75 & -90
+
+            robot.leftFront.setPower(0.1);
+            robot.rightFront.setPower(-0.1);
+            robot.leftBack.setPower(0.1);
+            robot.rightBack.setPower(-0.1);
+            telemetry.update();
+            angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+
+        } */
+
+        if (heading < -90) {
+
+            while (heading < -90) { //neg
+
+
+                robot.leftFront.setPower(-0.1);
+                robot.rightFront.setPower(0.1);
+                robot.leftBack.setPower(-0.1);
+                robot.rightBack.setPower(0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+
+
+            }
+        }
+        else if (heading > -90) {
+            while (heading > -90) { //pos
+
+
+                robot.leftFront.setPower(0.1);
+                robot.rightFront.setPower(-0.1);
+                robot.leftBack.setPower(0.1);
+                robot.rightBack.setPower(-0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+
+
+            }
+        }
+
+
+
+
+    }
+
+    //TWEAK VALUES
+    public void encoderRightTurn() {
+
+        encoderDrive(0.6,24,-24,24,
+                -24,7);
+
+    }
+
+    //TWEAK VALUES
+    public void encoderLeftTurn() {
+
+        encoderDrive(0.6,-24,24,-24,
+                24,7);
+
+    }
+
+    //TWEAK VALUES
+    public void encoderRightTurnEnd() {
+
+        encoderDrive(0.6,28,-28,28,
+                -28,7);
+
+    }
+
+    //TWEAK VALUES
+    public void encoderLeftTurnEnd() {
+
+        encoderDrive(0.6,-28,28,-28,
+                28,7);
+    }
+
+    public void gyroLeft() {
+        telemetry.update();
+        double heading =  angles.firstAngle;
+
+       /* while (heading < 90) { //b/w 75 & 90
+
+            robot.leftFront.setPower(-0.1);
+            robot.rightFront.setPower(0.1);
+            robot.leftBack.setPower(-0.1);
+            robot.rightBack.setPower(0.1);
+            telemetry.update();
+            angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+
+        } */
+
+        if (heading < 90) {
+
+            while (heading < 90) { //neg
+
+
+                robot.leftFront.setPower(-0.1);
+                robot.rightFront.setPower(0.1);
+                robot.leftBack.setPower(-0.1);
+                robot.rightBack.setPower(0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+
+
+            }
+        }
+        else if (heading > 90) {
+            while (heading > 90) { //pos
+
+
+                robot.leftFront.setPower(0.1);
+                robot.rightFront.setPower(-0.1);
+                robot.leftBack.setPower(0.1);
+                robot.rightBack.setPower(-0.1);
+                telemetry.update();
+                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+            }
+        }
+
+
+
+
+    }
+
+    public void encoderDrive(double speed,
+                             double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
+                             double timeoutS) {
+        int frontLeftTarget;
+        int frontRightTarget;
+        int backLeftTarget;
+        int backRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            double leftTicksFront = inchVal * leftInchesFront;
+            double rightTicksFront = inchVal * rightInchesFront;
+            double leftTicksBack = inchVal * leftInchesBack;
+            double rightTicksBack = inchVal * rightInchesBack;
+
+
+            // Determine new target position, and pass to motor controller
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftTicksFront);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightTicksFront);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftTicksBack);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightTicksBack);
+            robot.leftFront.setTargetPosition(frontLeftTarget);
+            robot.rightFront.setTargetPosition(frontRightTarget);
+            robot.leftBack.setTargetPosition(backLeftTarget);
+            robot.rightBack.setTargetPosition(backRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            robot.period.reset();
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+
+            //CONTINUE HERE
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (robot.period.seconds() < timeoutS) &&
+                    (robot.leftFront.isBusy() && robot.rightFront.isBusy() && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", frontLeftTarget,  frontLeftTarget, backLeftTarget, backRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition(),
+                        robot.leftBack.getCurrentPosition(),
+                        robot.rightBack.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftBack.setPower(0);
+            robot.rightBack.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+
     //18.667 in per second
     //Motor values down 0.1
-    public void GoBackward(int time) {
+    public void sleepRunningBack(int time) {
 
         robot.rightBack.setPower(-0.5);
         robot.leftFront.setPower(-0.5);
@@ -327,7 +507,7 @@ public class GabeGodReal extends LinearOpMode {
 
     }
 
-    public void GoForward(int time) {
+    public void sleepRunning(int time) {
 
         robot.rightBack.setPower(0.5);
         robot.leftFront.setPower(0.5);
@@ -420,18 +600,19 @@ public class GabeGodReal extends LinearOpMode {
 
     }
 
-    public void takeBreak() {
+    public void takeBreak(int sleepTime) {
 
         robot.leftFront.setPower(0.0);
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
         robot.rightBack.setPower(0.0);
-        sleep(1000);
+        sleep(sleepTime);
     }
+
 
     public void grabbingBlock() {
 
-        clawPosition = 0.59;
+        clawPosition = 0.6;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
@@ -439,7 +620,7 @@ public class GabeGodReal extends LinearOpMode {
 
     public void letGoBlock() {
 
-        clawPosition = 0.51;
+        clawPosition = 0.5;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
@@ -453,25 +634,32 @@ public class GabeGodReal extends LinearOpMode {
     }
 
     public void miniLiftingUp() {
-
         robot.lift.setPower(-0.4);
-        sleep(100);
-
     }
+
+
 
     public void miniLiftingDown() {
 
         robot.lift.setPower(0.4);
-        sleep(100);
 
     }
 
     public void liftingDown() {
 
-        robot.lift.setPower(0.8);
+        robot.lift.setPower(0.6);
         sleep(300);
 
     }
+
+    public void noDrag() {
+
+        robot.lift.setPower(-0.2);
+        sleep(50);
+
+    }
+
+
 
     public void draggerBacker(int time) {
 
@@ -746,7 +934,7 @@ public class GabeGodReal extends LinearOpMode {
                 VectorF translation = lastLocation.getTranslation();
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
 
-                        translation.get(0), translation.get(1), translation.get(2)); //BIG CHANGE IN OUTPUT   translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch
+                        translation.get(0), translation.get(1), translation.get(2)); //translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch
 
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);

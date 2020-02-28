@@ -105,7 +105,6 @@ public class MecanumDrive extends LinearOpMode {
             robot.grabber.setPosition(clawPosition);
                 */
 
-
             if (gamepad2.x && grabberVal) {
 
                 clawPosition += 0.045;

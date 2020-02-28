@@ -39,6 +39,14 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
+
+/*
+THIS IS A DEAD AUTO
+THIS IS A DEAD AUTO
+THIS IS A DEAD AUTO
+THIS IS A DEAD AUTO
+THIS IS A DEAD AUTO
+ */
 @Autonomous(name="Sky+Tray", group="TankBot")
 public class RedAuto extends LinearOpMode {
 

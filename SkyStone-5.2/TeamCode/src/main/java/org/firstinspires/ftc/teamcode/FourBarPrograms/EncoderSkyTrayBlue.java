@@ -33,9 +33,12 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name="ShaurnavStrafeAttempt", group="JankBot")
-public class ShaurnavStrafeAttempt extends LinearOpMode {
-    double clawPosition  = 0.51;
+
+//1000 ticks for 24 inches
+@Autonomous(name="EncoderSkyTrayBlue", group="TankBot")
+public class EncoderSkyTrayBlue extends LinearOpMode {
+
+    double clawPosition  = 0.0;
 
     MecanumHardware robot = new MecanumHardware();
 
@@ -70,12 +73,13 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
     private float phoneYRotate = 0;
     private float phoneZRotate = 0;
 
-    private final double inchVal = 41.667;
-
 
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
+
+
+    // State used for updating telemetry
 
 
     @Override
@@ -94,83 +98,30 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
 
         composeTelemetry();
 
-        robot.leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         waitForStart();
 
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
-        // Loop and update the dashboard
-        telemetry.update();
 
 
-
-        //41.667 ticks/1 inch
-
-        encoderDrive(0.3,30,30,30,
-                30,7);
-        grabbingBlock();
+        encoderDrive(0.4,667,-667,-667,
+                667,7);
+        headingCalibrate();
+        liftingUp();
+        encoderDrive(0.2,1333,1333,1333,
+                1333,7);
+        liftingDown();
+        takeBreak();
+        draggerEncoder(0.3,-1350,-1350,-1350,
+                -1350,7);
+        takeBreak();
         miniLiftingUp();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
-        //encoderRightTurn();
-        takeBreak(200);
-        //gyroRight();
-        encoderDrive(0.5,39,-39,-39,
-                39,7); //right and left are invesed
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.5,-46,46,46, //47 orig
-                -46,7);
-        //encoderLeftTurn();
-        takeBreak(200);
-        //headingCalibrate();
-        encoderDrive(0.3,12,12, 12,
-                12,7);
-        grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
-        //encoderRightTurn();
-        takeBreak(200);
-        //gyroRight();
-        encoderDrive(0.5,47,-47,-47,
-                47,7);
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.5,-54,53,53, //55 orig
-                -53,7);
-        //encoderLeftTurn();
-        takeBreak(200);
-        //headingCalibrate();
-        encoderDrive(0.3,14,14,14,
-                14,7);
-        grabbingBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-18,-18,-18,
-                -18,7);
-        //encoderRightTurn();
-        takeBreak(200);
-        //gyroRight();
-        encoderDrive(0.5,58,-58,-58,
-                58,7);
-        letGoBlock();
-        takeBreak(800);
-        encoderDrive(0.9,-12,-12,-12,
-                -12,7);
-
-
-
-
+        encoderDrive(0.4,-1500,1500,1500,
+                -1500,7);
+        miniLiftingDown();
+        takeBreak();
+        encoderDrive(0.4,-1333,1333,1333,
+                -1333,7);
 
     }
 
@@ -246,20 +197,22 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
         double heading =  angles.firstAngle;
 
         if (heading < 0) {
-            while (heading < 0) { //neg
+
+            while (heading < -5) {
+
+
                 robot.leftFront.setPower(-0.1);
                 robot.rightFront.setPower(0.1);
                 robot.leftBack.setPower(-0.1);
                 robot.rightBack.setPower(0.1);
                 telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
 
 
             }
         }
         else if (heading > 0) {
-            while (heading > 0) { //pos
+            while (heading > 5) {
 
 
                 robot.leftFront.setPower(0.1);
@@ -267,150 +220,16 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
                 robot.leftBack.setPower(0.1);
                 robot.rightBack.setPower(-0.1);
                 telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                heading = angles.firstAngle;
-            }
-        }
-
-    }
-
-    public void gyroRight() {
-        telemetry.update();
-        double heading =  angles.firstAngle;
-
-        /*while (heading > -90) { //b/w -75 & -90
-
-            robot.leftFront.setPower(0.1);
-            robot.rightFront.setPower(-0.1);
-            robot.leftBack.setPower(0.1);
-            robot.rightBack.setPower(-0.1);
-            telemetry.update();
-            angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            heading = angles.firstAngle;
-
-        } */
-
-        if (heading < -90) {
-
-            while (heading < -90) { //neg
-
-
-                robot.leftFront.setPower(-0.1);
-                robot.rightFront.setPower(0.1);
-                robot.leftBack.setPower(-0.1);
-                robot.rightBack.setPower(0.1);
-                telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                heading = angles.firstAngle;
-
-
-            }
-        }
-        else if (heading > -90) {
-            while (heading > -90) { //pos
-
-
-                robot.leftFront.setPower(0.1);
-                robot.rightFront.setPower(-0.1);
-                robot.leftBack.setPower(0.1);
-                robot.rightBack.setPower(-0.1);
-                telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
 
 
             }
         }
 
-
-
-
     }
 
-    //TWEAK VALUES
-    public void encoderRightTurn() {
-
-        encoderDrive(0.6,24,-24,24,
-                -24,7);
-
-    }
-
-    //TWEAK VALUES
-    public void encoderLeftTurn() {
-
-        encoderDrive(0.6,-24,24,-24,
-                24,7);
-
-    }
-
-    //TWEAK VALUES
-    public void encoderRightTurnEnd() {
-
-        encoderDrive(0.6,28,-28,28,
-                -28,7);
-
-    }
-
-    //TWEAK VALUES
-    public void encoderLeftTurnEnd() {
-
-        encoderDrive(0.6,-28,28,-28,
-                28,7);
-    }
-
-    public void gyroLeft() {
-        telemetry.update();
-        double heading =  angles.firstAngle;
-
-       /* while (heading < 90) { //b/w 75 & 90
-
-            robot.leftFront.setPower(-0.1);
-            robot.rightFront.setPower(0.1);
-            robot.leftBack.setPower(-0.1);
-            robot.rightBack.setPower(0.1);
-            telemetry.update();
-            angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            heading = angles.firstAngle;
-
-        } */
-
-        if (heading < 90) {
-
-            while (heading < 90) { //neg
-
-
-                robot.leftFront.setPower(-0.1);
-                robot.rightFront.setPower(0.1);
-                robot.leftBack.setPower(-0.1);
-                robot.rightBack.setPower(0.1);
-                telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                heading = angles.firstAngle;
-
-
-            }
-        }
-        else if (heading > 90) {
-            while (heading > 90) { //pos
-
-
-                robot.leftFront.setPower(0.1);
-                robot.rightFront.setPower(-0.1);
-                robot.leftBack.setPower(0.1);
-                robot.rightBack.setPower(-0.1);
-                telemetry.update();
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                heading = angles.firstAngle;
-            }
-        }
-
-
-
-
-    }
-
-    public void encoderDrive(double speed,
-                             double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
+    public void draggerEncoder(double speed,
+                             double leftTicksFront, double rightTicksFront, double leftTicksBack, double rightTicksBack,
                              double timeoutS) {
         int frontLeftTarget;
         int frontRightTarget;
@@ -420,11 +239,78 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
-            double leftTicksFront = inchVal * leftInchesFront;
-            double rightTicksFront = inchVal * rightInchesFront;
-            double leftTicksBack = inchVal * leftInchesBack;
-            double rightTicksBack = inchVal * rightInchesBack;
+            // Determine new target position, and pass to motor controller
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftTicksFront);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightTicksFront);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftTicksBack);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightTicksBack);
+            robot.leftFront.setTargetPosition(frontLeftTarget);
+            robot.rightFront.setTargetPosition(frontRightTarget);
+            robot.leftBack.setTargetPosition(backLeftTarget);
+            robot.rightBack.setTargetPosition(backRightTarget);
 
+            // Turn On RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            robot.period.reset();
+            robot.leftFront.setPower(Math.abs(speed));
+            robot.rightFront.setPower(Math.abs(speed));
+            robot.leftBack.setPower(Math.abs(speed));
+            robot.rightBack.setPower(Math.abs(speed));
+            robot.lift.setPower(Math.abs(speed*2.667));
+
+            //CONTINUE HERE
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (robot.period.seconds() < timeoutS) &&
+                    (robot.leftFront.isBusy() && robot.rightFront.isBusy() && robot.leftBack.isBusy() && robot.rightBack.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d", frontLeftTarget,  frontLeftTarget, backLeftTarget, backRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d",
+                        robot.leftFront.getCurrentPosition(),
+                        robot.rightFront.getCurrentPosition(),
+                        robot.leftBack.getCurrentPosition(),
+                        robot.rightBack.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftFront.setPower(0);
+            robot.rightFront.setPower(0);
+            robot.leftBack.setPower(0);
+            robot.rightBack.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+    }
+
+    public void encoderDrive(double speed,
+                             double leftTicksFront, double rightTicksFront, double leftTicksBack, double rightTicksBack,
+                             double timeoutS) {
+        int frontLeftTarget;
+        int frontRightTarget;
+        int backLeftTarget;
+        int backRightTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
             frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftTicksFront);
@@ -487,39 +373,40 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
         }
     }
 
-
     //18.667 in per second
     //Motor values down 0.1
-    public void sleepRunningBack(int time) {
+    public void sleepRunning(int time) {
 
-        robot.rightBack.setPower(-0.5);
-        robot.leftFront.setPower(-0.5);
-        robot.rightFront.setPower(-0.5);
-        robot.leftBack.setPower(-0.5);
 
+        robot.leftFront.setPower(0.5);
+        robot.rightFront.setPower(0.5);
+        robot.leftBack.setPower(0.5);
+        robot.rightBack.setPower(0.5);
         sleep(time);
 
-        robot.rightBack.setPower(0.0);
         robot.leftFront.setPower(0.0);
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
+        robot.rightBack.setPower(0.0);
+
 
 
     }
 
-    public void sleepRunning(int time) {
+    public void sleepRunningBack(int time) {
 
-        robot.rightBack.setPower(0.5);
-        robot.leftFront.setPower(0.5);
-        robot.rightFront.setPower(0.5);
-        robot.leftBack.setPower(0.5);
 
+        robot.leftFront.setPower(-0.5);
+        robot.rightFront.setPower(-0.5);
+        robot.leftBack.setPower(-0.5);
+        robot.rightBack.setPower(-0.5);
         sleep(time);
 
-        robot.rightBack.setPower(0.0);
         robot.leftFront.setPower(0.0);
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
+        robot.rightBack.setPower(0.0);
+
 
 
     }
@@ -600,19 +487,18 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
 
     }
 
-    public void takeBreak(int sleepTime) {
+    public void takeBreak() {
 
         robot.leftFront.setPower(0.0);
         robot.rightFront.setPower(0.0);
         robot.leftBack.setPower(0.0);
         robot.rightBack.setPower(0.0);
-        sleep(sleepTime);
+        sleep(500);
     }
-
 
     public void grabbingBlock() {
 
-        clawPosition = 0.6;
+        clawPosition = 0.59;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
@@ -620,7 +506,7 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
 
     public void letGoBlock() {
 
-        clawPosition = 0.5;
+        clawPosition = 0.51;
         clawPosition = Range.clip(clawPosition, 0, 1);
         robot.grabber.setPosition(clawPosition);
 
@@ -634,7 +520,10 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
     }
 
     public void miniLiftingUp() {
-        robot.lift.setPower(-0.4);
+
+        robot.lift.setPower(-0.5);
+        sleep(50);
+
     }
 
 
@@ -642,32 +531,24 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
     public void miniLiftingDown() {
 
         robot.lift.setPower(0.4);
+        sleep(50);
 
     }
 
     public void liftingDown() {
 
-        robot.lift.setPower(0.6);
+        robot.lift.setPower(0.4);
         sleep(300);
 
     }
 
-    public void noDrag() {
-
-        robot.lift.setPower(-0.2);
-        sleep(50);
-
-    }
-
-
-
     public void draggerBacker(int time) {
 
         robot.lift.setPower(0.6);
-        robot.leftFront.setPower(-0.5);
-        robot.rightFront.setPower(-0.5);
-        robot.leftBack.setPower(-0.5);
-        robot.rightBack.setPower(-0.5);
+        robot.leftFront.setPower(-0.4);
+        robot.rightFront.setPower(-0.4);
+        robot.leftBack.setPower(-0.4);
+        robot.rightBack.setPower(-0.4);
         sleep(time);
 
         robot.leftFront.setPower(0.0);
@@ -934,7 +815,7 @@ public class ShaurnavStrafeAttempt extends LinearOpMode {
                 VectorF translation = lastLocation.getTranslation();
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
 
-                        translation.get(0), translation.get(1), translation.get(2)); //translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch
+                        translation.get(0), translation.get(1), translation.get(2)); //BIG CHANGE IN OUTPUT   translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch
 
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
