@@ -72,11 +72,9 @@ public class TripleBlockBlue extends LinearOpMode {
 
     private final double inchVal = 41.667;
 
-
     // State used for updating telemetry
     Orientation angles;
     Acceleration gravity;
-
 
     @Override
     public void runOpMode() {
@@ -121,7 +119,7 @@ public class TripleBlockBlue extends LinearOpMode {
         grabbingBlock();
         takeBreak(1000);
         encoderDrive(0.9,-12,-12,-12,
-                -12,7);
+                -12,7); //12
         encoderLeftTurn();
         takeBreak(200);
         gyroLeft();
@@ -148,27 +146,28 @@ public class TripleBlockBlue extends LinearOpMode {
                 48,7);
         letGoBlock();
         takeBreak(800);
+        //going back second time
         encoderDrive(0.5,-55,-55,-55, //55 orig
                 -55,7);
         encoderRightTurn();
         takeBreak(200);
         headingCalibrate();
-        encoderDrive(0.3,16,16,16, //14
-                16,7);
+        encoderDrive(0.3,19,19,19, //14
+                19,7);
         //miniLiftingDown();
         grabbingBlock();
         takeBreak(1000);
-        encoderDrive(0.9,-18,-18,-18, //19
-                -18,7);
+        encoderDrive(0.9,-17,-17,-17, //19
+                -17,7);
         encoderLeftTurn();
         takeBreak(200);
         gyroLeft();
-        encoderDrive(0.5,61,61,61, //58
+        encoderDrive(0.6,61,61,61, //58
                 61,7);
         letGoBlock();
         takeBreak(800);
-        encoderDrive(0.9,-13,-13,-13,
-                -13,7);
+        encoderDrive(0.9,-15,-15,-15,
+                -15,7);
 
 
 

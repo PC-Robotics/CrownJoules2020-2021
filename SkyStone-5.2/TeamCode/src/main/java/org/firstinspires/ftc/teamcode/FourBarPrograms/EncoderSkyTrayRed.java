@@ -33,12 +33,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-
-//1000 ticks for 24 inches
-@Autonomous(name="EncoderSkyTrayRed", group="TankBot")
+@Autonomous(name="CoolestAutoRed", group="WorkingAuto")
 public class EncoderSkyTrayRed extends LinearOpMode {
 
-    double clawPosition  = 0.0;
+    double clawPosition  = 0.51;
+    private final double inchVal = 41.667;
 
     MecanumHardware robot = new MecanumHardware();
 
@@ -102,25 +101,26 @@ public class EncoderSkyTrayRed extends LinearOpMode {
 
         robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
+        telemetry.update();
 
-        encoderDrive(0.4,667,-667,-667,
-                667,7);
+        encoderDrive(0.4,16,-16,-16,
+                16,7); //strafeRight
         headingCalibrate();
         liftingUp();
-        encoderDrive(0.2,1333,1333,1333,
-                1333,7);
+        encoderDrive(0.2,32,32,32,
+                32,7);//go forward
         liftingDown();
         takeBreak();
-        draggerEncoder(0.3,-1350,-1350,-1350,
-                -1350,7);
+        draggerEncoder(0.3,-32.4,-32.4,-32.4,
+                -32.4,7); //backwards WHILE DRAGGING
         takeBreak();
         miniLiftingUp();
-        encoderDrive(0.4,-1500,1500,1500,
-                -1500,7);
+        encoderDrive(0.4,-36,36,36,
+                -36,7);
         miniLiftingDown();
         takeBreak();
-        encoderDrive(0.4,-1333,1333,1333,
-                -1333,7);
+        encoderDrive(0.4,-32,32,32,
+                -32,7); //left part 2 babey
 
     }
 
@@ -228,8 +228,8 @@ public class EncoderSkyTrayRed extends LinearOpMode {
     }
 
     public void draggerEncoder(double speed,
-                             double leftTicksFront, double rightTicksFront, double leftTicksBack, double rightTicksBack,
-                             double timeoutS) {
+                               double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
+                               double timeoutS) {
         int frontLeftTarget;
         int frontRightTarget;
         int backLeftTarget;
@@ -239,10 +239,10 @@ public class EncoderSkyTrayRed extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftTicksFront);
-            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightTicksFront);
-            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftTicksBack);
-            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightTicksBack);
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInchesFront * inchVal);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInchesFront * inchVal);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInchesBack * inchVal);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInchesBack * inchVal);
             robot.leftFront.setTargetPosition(frontLeftTarget);
             robot.rightFront.setTargetPosition(frontRightTarget);
             robot.leftBack.setTargetPosition(backLeftTarget);
@@ -301,7 +301,7 @@ public class EncoderSkyTrayRed extends LinearOpMode {
     }
 
     public void encoderDrive(double speed,
-                             double leftTicksFront, double rightTicksFront, double leftTicksBack, double rightTicksBack,
+                             double leftInchesFront, double rightInchesFront, double leftInchesBack, double rightInchesBack,
                              double timeoutS) {
         int frontLeftTarget;
         int frontRightTarget;
@@ -312,10 +312,10 @@ public class EncoderSkyTrayRed extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftTicksFront);
-            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightTicksFront);
-            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftTicksBack);
-            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightTicksBack);
+            frontLeftTarget = robot.leftFront.getCurrentPosition() + (int)(leftInchesFront * inchVal);
+            frontRightTarget = robot.rightFront.getCurrentPosition() + (int)(rightInchesFront * inchVal);
+            backLeftTarget = robot.leftBack.getCurrentPosition() + (int)(leftInchesBack * inchVal);
+            backRightTarget = robot.rightBack.getCurrentPosition() + (int)(rightInchesBack * inchVal);
             robot.leftFront.setTargetPosition(frontLeftTarget);
             robot.rightFront.setTargetPosition(frontRightTarget);
             robot.leftBack.setTargetPosition(backLeftTarget);
@@ -367,7 +367,6 @@ public class EncoderSkyTrayRed extends LinearOpMode {
             robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             //  sleep(250);   // optional pause after each move
         }
     }
