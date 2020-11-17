@@ -77,7 +77,7 @@ public class TankDrive2 extends LinearOpMode {
 
 
             telemetry.addData("Toggle: ", directionToggle);
-            telemetry.addData("", motorToggle);
+            telemetry.addData("MotorDirection: ", motorToggle);
             telemetry.update();
 
         }
