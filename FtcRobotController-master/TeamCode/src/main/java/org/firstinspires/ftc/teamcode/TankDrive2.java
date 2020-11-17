@@ -75,6 +75,9 @@ public class TankDrive2 extends LinearOpMode {
                 motorToggle = true;
             }
 
+            if (gamepad1.x){
+                robot.input.setDirection(DcMotorSimple.Direction.FORWARD);
+            }
 
             telemetry.addData("Toggle: ", directionToggle);
             telemetry.addData("MotorDirection: ", motorToggle);
