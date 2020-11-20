@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,8 +12,8 @@ public class MecanumHardware {
     public DcMotor  rightFront  = null;
     public DcMotor leftBack   = null;
     public DcMotor  rightBack  = null;
-    //public DcMotor input = null;
-    //public DcMotor output = null;
+    public DcMotor input = null;
+    public DcMotor output = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -34,8 +35,8 @@ public class MecanumHardware {
         rightFront = hwMap.get(DcMotor.class, "right_front");
         leftBack  = hwMap.get(DcMotor.class, "left_back");
         rightBack = hwMap.get(DcMotor.class, "right_back");
-        //input = hwMap.get(DcMotor.class, "input");
-        //output = hwMap.get(DcMotor.class, "output");
+        input = hwMap.get(DcMotor.class, "input");
+        output = hwMap.get(DcMotor.class, "output");
 
         //grabber = hwMap.get(Servo.class, "grabber");
         //lift = hwMap.get(DcMotor.class, "lift");
@@ -47,18 +48,19 @@ public class MecanumHardware {
         rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        input.setDirection(DcMotor.Direction.REVERSE);
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
-        //input.setPower(0);
+        input.setPower(0);
         //output.setPower(0);
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -72,7 +74,7 @@ public class MecanumHardware {
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Set all motors to run without encoders.
 
