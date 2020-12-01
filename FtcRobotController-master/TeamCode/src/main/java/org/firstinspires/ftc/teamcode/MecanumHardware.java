@@ -6,14 +6,17 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class MecanumHardware {
+    //Control Hub Assignments
+    //C: Control hub
+    //E: Expansion hub
 
     /* Public OpMode members. */
-    public DcMotor leftFront   = null;
-    public DcMotor  rightFront  = null;
-    public DcMotor leftBack   = null;
-    public DcMotor  rightBack  = null;
-    public DcMotor input = null;
-    public DcMotor output = null;
+    public DcMotor leftFront   = null; //C0
+    public DcMotor  rightFront  = null; //C1
+    public DcMotor leftBack   = null; //C2
+    public DcMotor  rightBack  = null; //C3
+    public DcMotor input = null; //E0
+    public DcMotor output = null; //E1
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
