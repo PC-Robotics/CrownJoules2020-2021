@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name="Drive With Input & Output")
+@TeleOp(name="Joystick drive with only Input Motor")
 public class TankDrive extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();   // Use a Pushbot's hardware
@@ -16,6 +16,7 @@ public class TankDrive extends LinearOpMode {
         boolean motorToggle = true;
         boolean inputDirectionToggle = true;
         boolean shooterPowerToggle = true;
+
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
@@ -30,8 +31,6 @@ public class TankDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-
             //Driving
             if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
                 double motorCoeff = 1.2;
@@ -107,6 +106,7 @@ public class TankDrive extends LinearOpMode {
 
             
             //Shooter Power Toggle
+            /*
             if (gamepad1.y && shooterPowerToggle){
                 robot.output.setPower(1);
                 shooterPowerToggle = false;
@@ -115,16 +115,12 @@ public class TankDrive extends LinearOpMode {
                 robot.output.setPower(0);
                 shooterPowerToggle = true;
             }
-            
-                /*
-                
              */
 
 
             telemetry.addData("Toggle: ", directionToggle);
             telemetry.addData("MotorDirection: ", motorToggle);
             telemetry.update();
-
         }
     }
 }
