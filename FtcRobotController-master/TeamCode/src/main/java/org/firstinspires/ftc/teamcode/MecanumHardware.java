@@ -45,9 +45,9 @@ public class MecanumHardware {
 
         //imu = hwMap.get(BNO055IMU.class, "imu");
         leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightFront.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         input.setDirection(DcMotor.Direction.REVERSE);
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -63,7 +63,7 @@ public class MecanumHardware {
         input.setPower(0);
         output.setPower(0);
         leftFront.setPower(0);
-        rightFront.setPower(0);
+        rightFront.setPower(0); //
         leftBack.setPower(0);
         rightBack.setPower(0);
         //lift.setPower(0);
