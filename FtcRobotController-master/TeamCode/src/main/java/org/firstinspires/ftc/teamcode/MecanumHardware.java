@@ -13,7 +13,7 @@ public class MecanumHardware {
     public DcMotor leftBack   = null;
     public DcMotor  rightBack  = null;
     public DcMotor input = null;
-    //public DcMotor output = null;
+    public DcMotor output = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -36,7 +36,7 @@ public class MecanumHardware {
         leftBack  = hwMap.get(DcMotor.class, "left_back");
         rightBack = hwMap.get(DcMotor.class, "right_back");
         input = hwMap.get(DcMotor.class, "input");
-        //output = hwMap.get(DcMotor.class, "output");
+        output = hwMap.get(DcMotor.class, "output");
 
         //grabber = hwMap.get(Servo.class, "grabber");
         //lift = hwMap.get(DcMotor.class, "lift");
@@ -55,13 +55,13 @@ public class MecanumHardware {
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         input.setPower(0);
-        //output.setPower(0);
+        output.setPower(0);
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftBack.setPower(0);
@@ -75,7 +75,7 @@ public class MecanumHardware {
         leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Set all motors to run without encoders.
 
         // May want to use RUN_USING_ENCODERS if encoders are installed.

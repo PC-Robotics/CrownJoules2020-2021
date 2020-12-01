@@ -82,8 +82,13 @@ public class TankDrive extends LinearOpMode {
                 directionToggle = true;
             }
 
-            
+            //see if we need deadzone
+            robot.input.setPower(gamepad1.left_trigger);
+            robot.output.setPower(gamepad1.right_trigger);
+
+
             //Input Power Toggle
+            /*
             if(gamepad1.x && motorToggle){
                 robot.input.setPower(0);
                 motorToggle = false;
@@ -92,9 +97,10 @@ public class TankDrive extends LinearOpMode {
                 robot.input.setPower(1);
                 motorToggle = true;
             }
-
+            */
 
             //Input Direction Toggle
+            /*
             if (gamepad1.right_bumper && inputDirectionToggle){
                 robot.input.setDirection(DcMotorSimple.Direction.FORWARD);
                 inputDirectionToggle = false;
@@ -103,7 +109,7 @@ public class TankDrive extends LinearOpMode {
                 robot.input.setDirection(DcMotor.Direction.REVERSE);
                 inputDirectionToggle = true;
             }
-
+            */
             
             //Shooter Power Toggle
             /*
