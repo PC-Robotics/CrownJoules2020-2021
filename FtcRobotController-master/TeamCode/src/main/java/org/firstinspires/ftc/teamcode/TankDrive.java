@@ -32,7 +32,7 @@ public class TankDrive extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             //Driving
-            //if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
+            if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
                 double motorCoeff = 1.2;
                 double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
                 double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
@@ -58,12 +58,12 @@ public class TankDrive extends LinearOpMode {
                 telemetry.addData("rightFront", "%.2f", frd);
                 telemetry.addData("leftBack", "%.2f", bld);
                 telemetry.addData("rightBack", "%.2f", brd);
-            /*} else {
+            } else {
                 robot.leftFront.setPower(0);
                 robot.rightFront.setPower(0);
                 robot.leftBack.setPower(0);
                 robot.rightBack.setPower(0);
-            }*/
+            }
 
 
             //Driving Direction Toggle
@@ -88,7 +88,7 @@ public class TankDrive extends LinearOpMode {
             robot.output.setPower(gamepad1.right_trigger);
 
             telemetry.addData("Shooter motor power:", robot.output.getPower());
-            telemetry.addData("Gamepad right trigger", gamepad1.right_trigger);
+            telemetry.addData("Gamepad right trigger", gamepad1.right_trigger * 1000);
             //Input Power Toggle
             /*
             if(gamepad1.x && motorToggle){
