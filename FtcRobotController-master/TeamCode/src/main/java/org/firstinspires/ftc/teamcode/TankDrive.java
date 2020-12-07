@@ -23,7 +23,7 @@ public class TankDrive extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Hi Driver");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -57,8 +57,13 @@ public class TankDrive extends LinearOpMode {
                 telemetry.addData("leftFront", "%.2f", fld);
                 telemetry.addData("rightFront", "%.2f", frd);
                 telemetry.addData("leftBack", "%.2f", bld);
+<<<<<<< Updated upstream
                 telemetry.addData("rightBack", "%.2f", brd);
             } else {
+=======
+                telemetry.addData("rightB", "%.2f", brd);
+            /*} else {
+>>>>>>> Stashed changes
                 robot.leftFront.setPower(0);
                 robot.rightFront.setPower(0);
                 robot.leftBack.setPower(0);
@@ -85,12 +90,12 @@ public class TankDrive extends LinearOpMode {
             //see if we need deadzone
 
             robot.input.setPower(gamepad1.left_trigger);
-            robot.output.setPower(gamepad1.right_trigger);
+            robot.output.setPower(gamepad1.right_trigger * 1000);
 
             telemetry.addData("Shooter motor power:", robot.output.getPower());
             telemetry.addData("Gamepad right trigger", gamepad1.right_trigger * 1000);
             //Input Power Toggle
-            /*
+
             if(gamepad1.x && motorToggle){
                 robot.input.setPower(0);
                 motorToggle = false;
@@ -99,7 +104,7 @@ public class TankDrive extends LinearOpMode {
                 robot.input.setPower(1);
                 motorToggle = true;
             }
-            */
+
 
             //Input Direction Toggle
             if (gamepad1.right_bumper && inputDirectionToggle){
