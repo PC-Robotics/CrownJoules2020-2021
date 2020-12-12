@@ -32,11 +32,11 @@ public class TankDrive extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             //Driving
-            if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
+            //if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
                 double motorCoeff = 1.2;
                 double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
                 double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-                double rightX = gamepad1.right_stick_x;
+                double rightX = -gamepad1.right_stick_x;
                 double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
                 double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
                 double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
@@ -58,12 +58,6 @@ public class TankDrive extends LinearOpMode {
                 telemetry.addData("rightFront", "%.2f", frd);
                 telemetry.addData("leftBack", "%.2f", bld);
                 telemetry.addData("rightBack", "%.2f", brd);
-            } else {
-                robot.leftFront.setPower(0);
-                robot.rightFront.setPower(0);
-                robot.leftBack.setPower(0);
-                robot.rightBack.setPower(0);
-            }
 
 
             //Driving Direction Toggle
@@ -84,22 +78,22 @@ public class TankDrive extends LinearOpMode {
 
             //see if we need deadzone
 
-            robot.input.setPower(gamepad1.left_trigger);
-            robot.output.setPower(gamepad1.right_trigger);
+            robot.input.setPower(gamepad1.right_trigger);
+            robot.output.setPower(gamepad1.left_trigger);
 
             telemetry.addData("Shooter motor power:", robot.output.getPower());
             telemetry.addData("Gamepad right trigger", gamepad1.right_trigger * 1000);
             //Input Power Toggle
-            /*
+
             if(gamepad1.x && motorToggle){
-                robot.input.setPower(0);
+                robot.output.setPower(1);
                 motorToggle = false;
             }
             else if(gamepad1.x && !motorToggle){
-                robot.input.setPower(1);
+                robot.output.setPower(0);
                 motorToggle = true;
             }
-            */
+
 
             //Input Direction Toggle
             if (gamepad1.right_bumper && inputDirectionToggle){
