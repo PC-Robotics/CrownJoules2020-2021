@@ -14,6 +14,15 @@ public class AutonomousVersionOne extends LinearOpMode {
     //then intake rollers for 400 ms
     //then intake rollers for 400 ms
 
+    /*
+       Move wobble goal to target zone
+       shoot for top goal in tower
+
+       3 seconds for winding up shooter motor
+       .25 second for rolling the input
+       .4 seconds for rolling the input for the next 2
+     */
+
     @Override
     public void runOpMode()
     {
@@ -22,6 +31,7 @@ public class AutonomousVersionOne extends LinearOpMode {
         waitForStart();
         while(opModeIsActive())
         {
+            //if this doesn't work are we going to have to multithread?
             robot.output.setPower(1);
             sleep(3000);
 
