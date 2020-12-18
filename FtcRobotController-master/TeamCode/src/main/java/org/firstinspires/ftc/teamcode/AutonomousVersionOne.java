@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@Autonomous(name="AutonomousVersionDrive")
+@Autonomous(name="Autonomous")
 public class AutonomousVersionOne extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();
@@ -64,8 +64,8 @@ public class AutonomousVersionOne extends LinearOpMode {
     public void drive(double power) {
         robot.leftFront.setPower(-power);  //negative should stay because of the direction of the robot
         robot.rightFront.setPower(-power);
-        robot.leftBack.setPower(-power);
         robot.rightBack.setPower(-power);
+        robot.leftBack.setPower(-power);
     }
 
 
