@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@Autonomous(name="Autonomous")
+@Autonomous(name="AutonomousDrive")
 public class AutonomousVersionOne extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();
@@ -34,7 +34,7 @@ public class AutonomousVersionOne extends LinearOpMode {
             //if this doesn't work are we going to have to multithread?
             drive(.5);
             robot.output.setPower(1);
-            sleep(1300);
+            sleep(1750);
 
             drive(0);
             robot.output.setPower(1);
