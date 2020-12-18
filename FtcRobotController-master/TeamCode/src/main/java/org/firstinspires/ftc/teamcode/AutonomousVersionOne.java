@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-@Autonomous(name="AutonomousVersionOne")
+@Autonomous(name="AutonomousVersionDrive")
 public class AutonomousVersionOne extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();
@@ -32,26 +32,40 @@ public class AutonomousVersionOne extends LinearOpMode {
         while(opModeIsActive())
         {
             //if this doesn't work are we going to have to multithread?
+            drive(.5);
             robot.output.setPower(1);
-            sleep(3000);
+            sleep(1300);
+
+            drive(0);
+            robot.output.setPower(1);
+            sleep(2500);
 
             robot.input.setPower(1);
             sleep(250);
 
+            robot.input.setPower(0);
             robot.output.setPower(1);
-            sleep(3000);
+            sleep(2500);
 
             robot.input.setPower(1);
-            sleep(400);
+            sleep(350);
 
+            robot.input.setPower(0);
             robot.output.setPower(1);
-            sleep(3000);
+            sleep(2500);
 
             robot.input.setPower(1);
-            sleep(400);
+            sleep(350);
 
             sleep(200000);
         }
+    }
+
+    public void drive(double power) {
+        robot.leftFront.setPower(-power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(-power);
+        robot.leftBack.setPower(-power);
+        robot.rightBack.setPower(-power);
     }
 
 
