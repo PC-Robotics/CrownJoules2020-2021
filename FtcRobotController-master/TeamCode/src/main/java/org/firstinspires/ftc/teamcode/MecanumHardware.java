@@ -17,6 +17,7 @@ public class MecanumHardware {
     public DcMotor  rightBack  = null; //C3
     public DcMotor input = null; //E0
     public DcMotor output = null; //E1
+    public DcMotor output2 = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -40,7 +41,7 @@ public class MecanumHardware {
         rightBack = hwMap.get(DcMotor.class, "right_back");
         input = hwMap.get(DcMotor.class, "input");
         output = hwMap.get(DcMotor.class, "output");
-
+        output2 = hwMap.get(DcMotor.class, "output2");
         //grabber = hwMap.get(Servo.class, "grabber");
         //lift = hwMap.get(DcMotor.class, "lift");
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
@@ -52,6 +53,8 @@ public class MecanumHardware {
         leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         input.setDirection(DcMotor.Direction.REVERSE);
+        output.setDirection(DcMotorSimple.Direction.REVERSE);
+        output2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -59,12 +62,14 @@ public class MecanumHardware {
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        output2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         input.setPower(0);
         output.setPower(0);
+        output2.setPower(0);
         leftFront.setPower(0);
         rightFront.setPower(0); //
         leftBack.setPower(0);

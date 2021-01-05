@@ -80,6 +80,7 @@ public class TankDrive extends LinearOpMode {
 
             robot.input.setPower(gamepad1.right_trigger);
             robot.output.setPower(gamepad1.left_trigger);
+            robot.output2.setPower(gamepad1.left_trigger);
             //reverse motor direction
             //Three things in autonomous
             //1 Grabbing the wobble goal -> blue target zone (15 points)
@@ -88,10 +89,6 @@ public class TankDrive extends LinearOpMode {
             //Autonomous: give it 3 seconds to spin up and then advance the first r
 
             //check if we have to reverse the direction for this...
-            if(gamepad1.right_bumper)
-                robot.input.setPower(-1);
-            if(gamepad1.left_bumper)
-                robot.output.setPower(-1);
 
             telemetry.addData("Shooter motor power:", robot.output.getPower());
             telemetry.addData("Gamepad right trigger", gamepad1.right_trigger);
