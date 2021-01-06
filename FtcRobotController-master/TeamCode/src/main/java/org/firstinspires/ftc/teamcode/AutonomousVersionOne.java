@@ -33,30 +33,38 @@ public class AutonomousVersionOne extends LinearOpMode {
         {
             //if this doesn't work are we going to have to multithread?
             drive(.5);
-            robot.output.setPower(1);
-            sleep(1750);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1500);
 
             drive(0);
-            robot.output.setPower(1);
-            sleep(1500);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1000);
 
             robot.input.setPower(1);
             sleep(250);
 
             robot.input.setPower(0);
             robot.output.setPower(1);
-            sleep(1500);
+            robot.output2.setPower(1);
+            sleep(250);
 
             robot.input.setPower(1);
             sleep(350);
 
-            robot.input.setPower(0);
+
             robot.output.setPower(1);
+            robot.output2.setPower(1);
             sleep(1500);
 
             robot.input.setPower(1);
             sleep(350);
 
+            drive(.5);
+            sleep(450);
+            
+            STOP();
             sleep(200000);
         }
     }
@@ -66,6 +74,17 @@ public class AutonomousVersionOne extends LinearOpMode {
         robot.rightFront.setPower(-power);
         robot.rightBack.setPower(-power);
         robot.leftBack.setPower(-power);
+    }
+
+    public void STOP(){
+        int power = 0;
+        robot.leftFront.setPower(-power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(-power);
+        robot.rightBack.setPower(-power);
+        robot.leftBack.setPower(-power);
+        robot.input.setPower(0);
+        robot.output.setPower(0);
+        robot.output2.setPower(0);
     }
 
 
