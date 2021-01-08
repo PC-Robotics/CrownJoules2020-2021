@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="Joystick drive with only Input Motor")
-public class TankDrive extends LinearOpMode {
+public class TankDriveOnePlayer extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();   // Use a Pushbot's hardware
 
@@ -33,31 +33,31 @@ public class TankDrive extends LinearOpMode {
         while (opModeIsActive()) {
             //Driving
             //if (gamepad1.left_stick_y > .2f || gamepad1.left_stick_x > .2f || gamepad2.right_stick_x > .2f || gamepad2.left_stick_y > .2f) {
-                double motorCoeff = 1.2;
-                double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-                double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-                double rightX = -gamepad1.right_stick_x;
-                double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
-                double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
-                double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
-                double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
+            double motorCoeff = 1.2;
+            double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
+            double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double rightX = -gamepad1.right_stick_x;
+            double fld = (magnitude * Math.cos(robotAngle) + rightX) * motorCoeff; //cos +
+            double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
+            double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
+            double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
 
-                if (gamepad1.right_bumper) {
-                    fld = fld * 0.4;
-                    frd = frd * 0.4;
-                    bld = bld * 0.4;
-                    brd = brd * 0.4;
-                }
+            if (gamepad1.right_bumper) {
+                fld = fld * 0.4;
+                frd = frd * 0.4;
+                bld = bld * 0.4;
+                brd = brd * 0.4;
+            }
 
-                robot.leftFront.setPower(fld);
-                robot.rightFront.setPower(frd);
-                robot.leftBack.setPower(bld);
-                robot.rightBack.setPower(brd);
+            robot.leftFront.setPower(fld);
+            robot.rightFront.setPower(frd);
+            robot.leftBack.setPower(bld);
+            robot.rightBack.setPower(brd);
 
-                telemetry.addData("leftFront", "%.2f", fld);
-                telemetry.addData("rightFront", "%.2f", frd);
-                telemetry.addData("leftBack", "%.2f", bld);
-                telemetry.addData("rightBack", "%.2f", brd);
+            telemetry.addData("leftFront", "%.2f", fld);
+            telemetry.addData("rightFront", "%.2f", frd);
+            telemetry.addData("leftBack", "%.2f", bld);
+            telemetry.addData("rightBack", "%.2f", brd);
 
 
             //Driving Direction Toggle
@@ -94,34 +94,23 @@ public class TankDrive extends LinearOpMode {
             telemetry.addData("Gamepad right trigger", gamepad1.right_trigger);
 
 
-            if (gamepad2.left_bumper) {
+            if (gamepad1.left_bumper) {
                 robot.input.setPower(-1);
             }
             //Input Direction Toggle
-            if (gamepad2.right_bumper && inputDirectionToggle){
+            if (gamepad1.right_bumper && inputDirectionToggle){
                 robot.input.setDirection(DcMotorSimple.Direction.FORWARD);
                 inputDirectionToggle = false;
             }
-            else if (gamepad2.right_bumper && !inputDirectionToggle){
+            else if (gamepad1.right_bumper && !inputDirectionToggle){
                 robot.input.setDirection(DcMotor.Direction.REVERSE);
                 inputDirectionToggle = true;
             }
-            
-            //Shooter Power Toggle
-            /*
-            if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(1);
-                shooterPowerToggle = false;
-            }
-            else if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(0);
-                shooterPowerToggle = true;
-            }
-             */
 
 
-            telemetry.addData("Toggle: ", directionToggle);
-            telemetry.addData("MotorDirection: ", motorToggle);
+
+            telemetry.addData("DriveToggle: ", directionToggle);
+            telemetry.addData("Input Direction: ", inputDirectionToggle);
             telemetry.update();
         }
     }
