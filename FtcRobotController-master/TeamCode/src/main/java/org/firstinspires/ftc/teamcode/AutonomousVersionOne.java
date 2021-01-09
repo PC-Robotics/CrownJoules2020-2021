@@ -35,7 +35,7 @@ public class AutonomousVersionOne extends LinearOpMode {
             drive(.5);
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
-            sleep(1500);
+            sleep(1650);
 
             drive(0);
             robot.output.setPower(.9);
@@ -62,7 +62,7 @@ public class AutonomousVersionOne extends LinearOpMode {
             sleep(350);
 
             drive(.5);
-            sleep(450);
+            sleep(350);
             
             STOP();
             sleep(200000);
@@ -70,18 +70,18 @@ public class AutonomousVersionOne extends LinearOpMode {
     }
 
     public void drive(double power) {
-        robot.leftFront.setPower(-power);  //negative should stay because of the direction of the robot
-        robot.rightFront.setPower(-power);
-        robot.rightBack.setPower(-power);
-        robot.leftBack.setPower(-power);
+        robot.leftFront.setPower(power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(power);
+        robot.rightBack.setPower(power);
+        robot.leftBack.setPower(power);
     }
 
     public void STOP(){
         int power = 0;
-        robot.leftFront.setPower(-power);  //negative should stay because of the direction of the robot
-        robot.rightFront.setPower(-power);
-        robot.rightBack.setPower(-power);
-        robot.leftBack.setPower(-power);
+        robot.leftFront.setPower(power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(power);
+        robot.rightBack.setPower(power);
+        robot.leftBack.setPower(power);
         robot.input.setPower(0);
         robot.output.setPower(0);
         robot.output2.setPower(0);

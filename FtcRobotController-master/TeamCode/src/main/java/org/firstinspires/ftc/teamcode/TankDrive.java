@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name="Joystick drive with only Input Motor")
+@TeleOp(name="TwoPlayerDrive")
 public class TankDrive extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();   // Use a Pushbot's hardware
