@@ -91,7 +91,7 @@ public class TankDrive extends LinearOpMode {
             //check if we have to reverse the direction for this...
 
             telemetry.addData("Shooter motor power:", robot.output.getPower());
-            telemetry.addData("Gamepad right trigger", gamepad1.right_trigger);
+            telemetry.addData("Gamepad right trigger", gamepad2.right_trigger);
 
 
             if (gamepad2.left_bumper) {
