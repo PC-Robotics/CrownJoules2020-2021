@@ -31,11 +31,10 @@ public class AutonomousVersionOne extends LinearOpMode {
         waitForStart();
         while(opModeIsActive())
         {
-            //if this doesn't work are we going to have to multithread?
             drive(.5);
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
-            sleep(1650);
+            sleep(1650); //change timing here for initial drive
 
             drive(0);
             robot.output.setPower(.9);

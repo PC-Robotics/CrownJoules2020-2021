@@ -16,6 +16,7 @@ public class TankDrive extends LinearOpMode {
         boolean motorToggle = true;
         boolean inputDirectionToggle = true;
         boolean shooterPowerToggle = true;
+        double motorCoefficient = 1.0;
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -23,7 +24,7 @@ public class TankDrive extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Good Luck Nate and Ethan!");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -76,11 +77,19 @@ public class TankDrive extends LinearOpMode {
                 directionToggle = true;
             }
 
-            //see if we need deadzone
+            //Motor Coefficients
+            if (gamepad2.a)
+                motorCoefficient = 0.85;
+            else if (gamepad2.b)
+                motorCoefficient = 1.0;
+
+            if (gamepad2.left_bumper)
+                robot.input.setPower(-1);
+
 
             robot.input.setPower(gamepad2.right_trigger);
-            robot.output.setPower(gamepad2.left_trigger);
-            robot.output2.setPower(gamepad2.left_trigger);
+            robot.output.setPower(gamepad2.left_trigger * motorCoefficient);
+            robot.output2.setPower(gamepad2.left_trigger * motorCoefficient);
             //reverse motor direction
             //Three things in autonomous
             //1 Grabbing the wobble goal -> blue target zone (15 points)
@@ -90,13 +99,8 @@ public class TankDrive extends LinearOpMode {
 
             //check if we have to reverse the direction for this...
 
-            telemetry.addData("Shooter motor power:", robot.output.getPower());
-            telemetry.addData("Gamepad right trigger", gamepad2.right_trigger);
 
 
-            if (gamepad2.left_bumper) {
-                robot.input.setPower(-1);
-            }
             //Input Direction Toggle
             if (gamepad2.right_bumper && inputDirectionToggle){
                 robot.input.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -119,9 +123,9 @@ public class TankDrive extends LinearOpMode {
             }
              */
 
-
-            telemetry.addData("Toggle: ", directionToggle);
-            telemetry.addData("MotorDirection: ", motorToggle);
+            telemetry.addData("Driving motor direction toggle: ", directionToggle);
+            telemetry.addData("Shooting Motor Direction (shouldn't need to use): ", motorToggle);
+            telemetry.addData("Shooter Motor Power: ", motorCoefficient);
             telemetry.update();
         }
     }
