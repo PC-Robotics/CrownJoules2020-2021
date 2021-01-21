@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -18,6 +19,7 @@ public class MecanumHardware {
     public DcMotor input = null; //E0
     public DcMotor output = null; //E1
     public DcMotor output2 = null;
+    public ColorSensor sensor;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -42,6 +44,7 @@ public class MecanumHardware {
         input = hwMap.get(DcMotor.class, "input");
         output = hwMap.get(DcMotor.class, "output");
         output2 = hwMap.get(DcMotor.class, "output2");
+
         //grabber = hwMap.get(Servo.class, "grabber");
         //lift = hwMap.get(DcMotor.class, "lift");
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
