@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cDevice;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class MecanumHardwareTwo {
@@ -12,7 +15,7 @@ public class MecanumHardwareTwo {
     //E: Expansion hub
 
     /* Public OpMode members. */
-    public ColorSensor sensor;
+
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -27,7 +30,7 @@ public class MecanumHardwareTwo {
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
-        sensor = hwMap.colorSensor.get("sensor");
+
     }
 
 }

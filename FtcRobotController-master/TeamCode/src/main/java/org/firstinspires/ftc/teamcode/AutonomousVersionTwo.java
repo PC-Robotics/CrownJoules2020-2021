@@ -25,25 +25,11 @@ public class AutonomousVersionTwo extends LinearOpMode {
      */
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         robot.init(hardwareMap);
 
         waitForStart();
-        while(opModeIsActive())
-        {
-            int red = robot.sensor.red();
-            int blue = robot.sensor.blue();
-            int green = robot.sensor.green();
-
-            telemetry.addData("Red: ", red);
-            telemetry.addData("Blue: ", blue);
-            telemetry.addData("Green: ", green);
-
-            telemetry.addData("ARGB: ", robot.sensor.argb());
-            telemetry.update();
+        while (opModeIsActive()) {
         }
     }
-
-
 }
