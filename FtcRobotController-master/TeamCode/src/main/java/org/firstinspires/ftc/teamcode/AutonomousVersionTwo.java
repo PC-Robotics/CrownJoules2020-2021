@@ -75,7 +75,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
     private TFObjectDetector tfod;
 
     MecanumHardware robot = new MecanumHardware();
-    String label;
+    String label = "null";
 
     @Override
     public void runOpMode() {
@@ -106,7 +106,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
         waitForStart();
 
 
-        if (opModeIsActive()) {
+        while (opModeIsActive()) {
             robot.init(hardwareMap);
 
 
@@ -126,6 +126,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
                     telemetry.update();
                 }
             }
+            sleep(2000);
 
             //just double to check if these strings are legit...
             if(label.equals("Quad"))

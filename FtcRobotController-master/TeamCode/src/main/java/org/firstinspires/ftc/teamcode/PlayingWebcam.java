@@ -53,7 +53,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  *
  *  0 RINGS
  */
-@Autonomous(name = "NewAuto")
+@Autonomous(name = "PlayingWebcam")
 public class PlayingWebcam extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -75,7 +75,7 @@ public class PlayingWebcam extends LinearOpMode {
     private TFObjectDetector tfod;
 
     MecanumHardware robot = new MecanumHardware();
-    String label;
+    String label = "null";
 
     @Override
     public void runOpMode() {
@@ -107,13 +107,15 @@ public class PlayingWebcam extends LinearOpMode {
         waitForStart();
 
 
-        if (opModeIsActive()) {
+        while (opModeIsActive()) {
             robot.init(hardwareMap);
             drive(.5);
-            sleep(800);
+            sleep(600);
+
 
             STOP();
             if (tfod != null) {
+                telemetry.addLine("Inside TFOD");
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -128,9 +130,9 @@ public class PlayingWebcam extends LinearOpMode {
                     telemetry.update();
                 }
             }
-            sleep(100);
+            sleep(10000);
 
-            //
+            /*
             drive(.5);
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
@@ -165,6 +167,8 @@ public class PlayingWebcam extends LinearOpMode {
 
             STOP();
             sleep(50);
+            */
+
 
             //just double to check if these strings are legit...
             if(label.equals("Quad"))
@@ -173,6 +177,8 @@ public class PlayingWebcam extends LinearOpMode {
                 singleCase();
             else
                 noRingCase();
+
+            sleep(200000);
         }
 
         if(tfod != null)
