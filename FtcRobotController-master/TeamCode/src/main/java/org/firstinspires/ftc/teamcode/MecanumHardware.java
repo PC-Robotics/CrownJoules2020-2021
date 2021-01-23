@@ -12,14 +12,14 @@ public class MecanumHardware {
     //E: Expansion hub
 
     /* Public OpMode members. */
-    public DcMotor leftFront   = null; //C0
-    public DcMotor  rightFront  = null; //C1
-    public DcMotor leftBack   = null; //C2
-    public DcMotor  rightBack  = null; //C3
-    public DcMotor input = null; //E0
-    public DcMotor output = null; //E1
-    public DcMotor output2 = null;
-    public ColorSensor sensor;
+    public DcMotor leftFront; //C0
+    public DcMotor  rightFront; //C1
+    public DcMotor leftBack; //C2
+    public DcMotor  rightBack; //C3
+    public DcMotor input; //E0
+    public DcMotor output; //E1
+    public DcMotor output2;
+    public DcMotor wobble;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -44,20 +44,18 @@ public class MecanumHardware {
         input = hwMap.get(DcMotor.class, "input");
         output = hwMap.get(DcMotor.class, "output");
         output2 = hwMap.get(DcMotor.class, "output2");
+        wobble = hwMap.get(DcMotor.class, "wobble");
 
-        //grabber = hwMap.get(Servo.class, "grabber");
-        //lift = hwMap.get(DcMotor.class, "lift");
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
-        //imu = hwMap.get(BNO055IMU.class, "imu");
-
-        //imu = hwMap.get(BNO055IMU.class, "imu");
         leftFront.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightFront.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         input.setDirection(DcMotor.Direction.REVERSE);
-        output.setDirection(DcMotorSimple.Direction.REVERSE);
-        output2.setDirection(DcMotorSimple.Direction.REVERSE);
+        output.setDirection(DcMotor.Direction.REVERSE);
+        output2.setDirection(DcMotor.Direction.REVERSE);
+        wobble.setDirection(DcMotor.Direction.REVERSE);
+
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -66,6 +64,7 @@ public class MecanumHardware {
         input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         output2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wobble.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -77,9 +76,7 @@ public class MecanumHardware {
         rightFront.setPower(0); //
         leftBack.setPower(0);
         rightBack.setPower(0);
-        //lift.setPower(0);
-
-        //grabber.setPosition(MID_SERVO);
+        wobble.setPower(0);
 
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -87,8 +84,9 @@ public class MecanumHardware {
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // Set all motors to run without encoders.
+        wobble.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
       /*  leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

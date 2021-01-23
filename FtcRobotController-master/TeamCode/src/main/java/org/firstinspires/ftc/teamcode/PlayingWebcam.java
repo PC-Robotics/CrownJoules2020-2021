@@ -30,6 +30,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -41,34 +42,23 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 /**
- * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
- * determine the position of the Ultimate Goal game elements.
+ * Thoughts:
  *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list.
+ * Ring Scenarios:
  *
- * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
- * is explained below.
+ *
+ *  1 RING
+ *
+ *  4 RINGS
+ *
+ *  0 RINGS
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection Webcam", group = "Concept")
-
+@Autonomous(name = "NewAuto")
 public class PlayingWebcam extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
-    /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
-     *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
-     */
     private static final String VUFORIA_KEY =
             "ATNmabz/////AAABmVmSVXYWb0VmjazeKz6YlEcEFyR/Bwx7J4S4ErBVLHCofHNpuB7OysvKUlcQFXu9lTTNk2HXz/RNh44Cmlq/aTt7HoMb0E3wehoR7nEZtqUydd6qsQj729DrE8ivYcXFI+whlD9swrR3vzpr5WP2Ru6UfA9JZNJ/k8UOU/l9EKJn+gh6Hs/E1pimaFYxExW/2nv3pxuKFUjrP6FDUd8C4CzNwPLvectKrkdzjr8esEfoLqfj+rtC4Ae949C6BDG8E1WyKUxKWl6y+YcKpI0Gf3Vh9Ye99acF35/o7Y16+couYcaIDOd6idCNURLE8FDwJN+wM7BgGfY0z/wkMeULVwONl515au8bnhY92hQfzCLF";
 
@@ -84,18 +74,20 @@ public class PlayingWebcam extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
+    MecanumHardware robot = new MecanumHardware();
+    String label;
+
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
         initTfod();
-
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-        if (tfod != null) {
+        if (tfod != null)
             tfod.activate();
 
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
@@ -107,44 +99,133 @@ public class PlayingWebcam extends LinearOpMode {
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
             //tfod.setZoom(2.5, 1.78);
-        }
+
 
         /** Wait for the game to begin */
-        telemetry.addData(">", "Press Play to start op mode");
+        telemetry.addData(">", "Let's get this bread...");
         telemetry.update();
         waitForStart();
 
+
         if (opModeIsActive()) {
-            while (opModeIsActive()) {
-                if (tfod != null) {
-                    // getUpdatedRecognitions() will return null if no new information is available since
-                    // the last time that call was made.
-                    List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                    if (updatedRecognitions != null) {
-                        telemetry.addData("# Object Detected", updatedRecognitions.size());
-                        // step through the list of recognitions and display boundary info.
-                        int i = 0;
-                        for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-                        }
-                        telemetry.update();
+            robot.init(hardwareMap);
+            drive(.5);
+            sleep(800);
+
+            STOP();
+            if (tfod != null) {
+                // getUpdatedRecognitions() will return null if no new information is available since
+                // the last time that call was made.
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+                    telemetry.addData("# Object Detected", updatedRecognitions.size());
+                    // step through the list of recognitions and display boundary info.
+                    int i = 0;
+                    for (Recognition recognition : updatedRecognitions) {
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        label = recognition.getLabel();
                     }
+                    telemetry.update();
                 }
             }
+            sleep(100);
+
+            //
+            drive(.5);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1650); //change timing here for initial drive
+
+            drive(0);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1000);
+
+            robot.input.setPower(1);
+            sleep(250);
+
+            robot.input.setPower(0);
+            robot.output.setPower(1);
+            robot.output2.setPower(1);
+            sleep(250);
+
+            robot.input.setPower(1);
+            sleep(350);
+
+
+            robot.output.setPower(1);
+            robot.output2.setPower(1);
+            sleep(1500);
+
+            robot.input.setPower(1);
+            sleep(350);
+
+            drive(.5);
+            sleep(350);
+
+            STOP();
+            sleep(50);
+
+            //just double to check if these strings are legit...
+            if(label.equals("Quad"))
+                quadCase();
+            else if (label.equals("Single"))
+                singleCase();
+            else
+                noRingCase();
         }
 
-        if (tfod != null) {
+        if(tfod != null)
             tfod.shutdown();
-        }
+    }
+
+    //remember that in each of these cases... the robot is actually at the white line...
+
+    public void quadCase(){
+        drive(-1);
+        sleep(200);
+
+        turn(1);
+        sleep(400);
+    }
+
+    public void singleCase(){
+
+    }
+
+    public void noRingCase(){
+
+    }
+
+    public void drive(double power) {
+        robot.leftFront.setPower(power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(power);
+        robot.rightBack.setPower(power);
+        robot.leftBack.setPower(power);
+    }
+
+    public void STOP(){
+        int power = 0;
+        robot.leftFront.setPower(power);  //negative should stay because of the direction of the robot
+        robot.rightFront.setPower(power);
+        robot.rightBack.setPower(power);
+        robot.leftBack.setPower(power);
+        robot.input.setPower(0);
+        robot.output.setPower(0);
+        robot.output2.setPower(0);
+    }
+
+    public void turn(double power){
+        robot.leftFront.setPower(power);
+        robot.leftBack.setPower(power);
+        robot.rightFront.setPower(-power);
+        robot.rightBack.setPower(-power);
     }
 
     /**
      * Initialize the Vuforia localization engine.
      */
+
     private void initVuforia() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.

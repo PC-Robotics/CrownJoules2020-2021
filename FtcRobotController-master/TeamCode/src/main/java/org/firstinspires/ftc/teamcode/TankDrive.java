@@ -43,6 +43,7 @@ public class TankDrive extends LinearOpMode {
                 double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
                 double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
 
+
                 if (gamepad1.right_bumper) {
                     fld = fld * 0.4;
                     frd = frd * 0.4;
