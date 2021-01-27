@@ -44,7 +44,7 @@ public class MecanumHardware {
         input = hwMap.get(DcMotor.class, "input");
         output = hwMap.get(DcMotor.class, "output");
         output2 = hwMap.get(DcMotor.class, "output2");
-        //wobble = hwMap.get(DcMotor.class, "wobble");
+        wobble = hwMap.get(DcMotor.class, "wobble");
 
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
         leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -54,7 +54,7 @@ public class MecanumHardware {
         input.setDirection(DcMotor.Direction.REVERSE);
         output.setDirection(DcMotor.Direction.REVERSE);
         output2.setDirection(DcMotor.Direction.REVERSE);
-        //wobble.setDirection(DcMotor.Direction.REVERSE);
+        wobble.setDirection(DcMotor.Direction.REVERSE);
 
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -64,7 +64,7 @@ public class MecanumHardware {
         input.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         output.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         output2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //wobble.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wobble.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -76,7 +76,7 @@ public class MecanumHardware {
         rightFront.setPower(0); //
         leftBack.setPower(0);
         rightBack.setPower(0);
-        //wobble.setPower(0);
+        wobble.setPower(0);
 
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -84,7 +84,7 @@ public class MecanumHardware {
         rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //wobble.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        wobble.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

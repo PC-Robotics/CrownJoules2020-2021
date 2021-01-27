@@ -100,18 +100,21 @@ public class TankDrive extends LinearOpMode {
 
             //check if we have to reverse the direction for this...
 
+            if(gamepad2.right_bumper)
+                robot.input.setPower(.85);
+            if(!gamepad2.dpad_up || !gamepad2.dpad_down)
+                robot.wobble.setPower(0);
+            if(gamepad2.dpad_up)
+                robot.wobble.setPower(.6);
+            if(gamepad2.dpad_down)
+                robot.wobble.setPower(-1);
+
+            telemetry.addData("bool up", gamepad2.dpad_up);
+            telemetry.addData("bool down", gamepad2.dpad_down);
 
 
             //Input Direction Toggle
-            if (gamepad2.right_bumper && inputDirectionToggle){
-                robot.input.setDirection(DcMotorSimple.Direction.FORWARD);
-                inputDirectionToggle = false;
-            }
-            else if (gamepad2.right_bumper && !inputDirectionToggle){
-                robot.input.setDirection(DcMotor.Direction.REVERSE);
-                inputDirectionToggle = true;
-            }
-            
+
             //Shooter Power Toggle
             /*
             if (gamepad1.y && shooterPowerToggle){
