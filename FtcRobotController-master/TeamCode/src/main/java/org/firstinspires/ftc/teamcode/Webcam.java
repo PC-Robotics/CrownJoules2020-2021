@@ -74,7 +74,7 @@ import java.util.concurrent.TimeUnit;
  * using Media Transfer; ADB; etc)
  */
 @TeleOp(name="Concept: Webcam", group ="Concept")
-@Disabled
+
 public class Webcam extends LinearOpMode {
 
     //----------------------------------------------------------------------------------------------
@@ -196,6 +196,7 @@ public class Webcam extends LinearOpMode {
         /** YUY2 is supported by all Webcams, per the USB Webcam standard: See "USB Device Class Definition
          * for Video Devices: Uncompressed Payload, Table 2-1". Further, often this is the *only*
          * image format supported by a camera */
+
         final int imageFormat = ImageFormat.YUY2;
 
         /** Verify that the image is supported, and fetch size and desired frame rate if so */

@@ -90,6 +90,8 @@ public class PlayingWebcam extends LinearOpMode {
         if (tfod != null)
             tfod.activate();
 
+
+
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
             // If your target is at distance greater than 50 cm (20") you can adjust the magnification value
@@ -98,7 +100,7 @@ public class PlayingWebcam extends LinearOpMode {
             // (typically 1.78 or 16/9).
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            //tfod.setZoom(2.5, 1.78);
+            //tfod.setZoom(1, 1.78);
 
 
         /** Wait for the game to begin */
@@ -109,11 +111,9 @@ public class PlayingWebcam extends LinearOpMode {
 
         while (opModeIsActive()) {
             robot.init(hardwareMap);
-            drive(.5);
-            sleep(600);
-
-
             STOP();
+
+
             if (tfod != null) {
                 telemetry.addLine("Inside TFOD");
                 // getUpdatedRecognitions() will return null if no new information is available since
