@@ -100,7 +100,7 @@ public class PlayingWebcam extends LinearOpMode {
             // (typically 1.78 or 16/9).
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            //tfod.setZoom(1, 1.78);
+            tfod.setZoom(2, 1.78);
 
 
         /** Wait for the game to begin */
@@ -115,7 +115,7 @@ public class PlayingWebcam extends LinearOpMode {
 
 
             if (tfod != null) {
-                telemetry.addLine("Inside TFOD");
+
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -130,7 +130,7 @@ public class PlayingWebcam extends LinearOpMode {
                     telemetry.update();
                 }
             }
-            sleep(10000);
+
 
             /*
             drive(.5);
@@ -169,7 +169,7 @@ public class PlayingWebcam extends LinearOpMode {
             sleep(50);
             */
 
-
+            /*
             //just double to check if these strings are legit...
             if(label.equals("Quad"))
                 quadCase();
@@ -179,6 +179,8 @@ public class PlayingWebcam extends LinearOpMode {
                 noRingCase();
 
             sleep(200000);
+
+             */
         }
 
         if(tfod != null)
