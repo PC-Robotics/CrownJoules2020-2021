@@ -28,7 +28,7 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+//Note: Positive Turn turns Left
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -53,7 +53,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  *
  *  0 RINGS
  */
-@Autonomous(name = "PlayingWebcam")
+@Autonomous(name = "workingAuto")
 public class PlayingWebcam extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -108,14 +108,13 @@ public class PlayingWebcam extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        //worst comes to worst we can make the while loop go through for a few times first and then start...
 
         while (opModeIsActive()) {
             robot.init(hardwareMap);
             STOP();
 
-
             if (tfod != null) {
-
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -132,7 +131,44 @@ public class PlayingWebcam extends LinearOpMode {
             }
 
 
-            /*
+
+            if(label.equals("Quad"))
+                quadCase();
+            else if(label.equals("Single"))
+                singleCase();
+            else
+                noRingCase();
+
+        }
+
+        if(tfod != null)
+            tfod.shutdown();
+    }
+
+    //remember that in each of these cases... the robot is actually at the white line...
+    //Let's try and deliver in the landing zone for 4 rings...
+    //Deliver in the landing zone for all rings...
+
+    public void quadCase(){
+        drive(.5);
+        sleep(800);
+
+        turn(.5); //45degrees
+        sleep(400);
+
+        drive(.5);
+        sleep(800);
+
+        turn(-.5); //0degrees
+        sleep(400);
+
+        drive(.5);
+        sleep(300);
+
+        STOP();
+        sleep(1000);
+
+        /*
             drive(.5);
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
@@ -166,35 +202,10 @@ public class PlayingWebcam extends LinearOpMode {
             sleep(350);
 
             STOP();
-            sleep(50);
-            */
-
-            /*
-            //just double to check if these strings are legit...
-            if(label.equals("Quad"))
-                quadCase();
-            else if (label.equals("Single"))
-                singleCase();
-            else
-                noRingCase();
-
             sleep(200000);
 
-             */
-        }
+         */
 
-        if(tfod != null)
-            tfod.shutdown();
-    }
-
-    //remember that in each of these cases... the robot is actually at the white line...
-
-    public void quadCase(){
-        drive(-1);
-        sleep(200);
-
-        turn(1);
-        sleep(400);
     }
 
     public void singleCase(){

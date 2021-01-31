@@ -47,10 +47,10 @@ public class MecanumHardware {
         wobble = hwMap.get(DcMotor.class, "wobble");
 
         //webcamName = hwMap.get(WebcamName.class, "Webcam 1");
-        leftFront.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightFront.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        leftBack.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightBack.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        leftFront.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightFront.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        leftBack.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
+        rightBack.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         input.setDirection(DcMotor.Direction.REVERSE);
         output.setDirection(DcMotor.Direction.REVERSE);
         output2.setDirection(DcMotor.Direction.REVERSE);
