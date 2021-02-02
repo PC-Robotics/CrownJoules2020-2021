@@ -105,9 +105,9 @@ public class TwoPlayerDrive extends LinearOpMode {
             if(!gamepad2.dpad_up || !gamepad2.dpad_down)
                 robot.wobble.setPower(0);
             if(gamepad2.dpad_up)
-                robot.wobble.setPower(.6);
+                robot.wobble.setPower(.5);
             if(gamepad2.dpad_down)
-                robot.wobble.setPower(-1);
+                robot.wobble.setPower(-.5);
 
             telemetry.addData("bool up", gamepad2.dpad_up);
             telemetry.addData("bool down", gamepad2.dpad_down);

@@ -141,14 +141,14 @@ public class AutonomousVersionTwo extends LinearOpMode {
             }
 
 
-
+            /*
             if(label.equals("Quad"))
                 quadCase();
             else if(label.equals("Single"))
                 singleCase();
             else
                 noRingCase();
-
+            */
         }
 
         if(tfod != null)
@@ -171,14 +171,20 @@ public class AutonomousVersionTwo extends LinearOpMode {
         sleep(400);
 
         drive(.5);
-        sleep(800);
+        sleep(400);
 
-        turn(-1); //0degrees
+        turn(-.5); //forwardfacing
+        sleep(400);
+
+        drive(.5);
+        sleep(1000);
+
+
+        turn(-.5); //0degrees
         sleep(400);
 
         shootThreeRings();
-
-
+        
         STOP();
         sleep(1000);
     }
@@ -193,7 +199,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
         robot.output2.setPower(.9);
         sleep(1650); //change timing here for initial drive
 
-        drive(0);   //Stop Initial Drive Forward
+        //Stop Initial Drive Forward
         shootThreeRings();
 
         drive(.25);
@@ -204,6 +210,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     public void shootThreeRings(){
+        STOP();
         robot.output.setPower(.9);
         robot.output2.setPower(.9);
         sleep(1000);
