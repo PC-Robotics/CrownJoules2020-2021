@@ -140,7 +140,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
                 }
             }
 
-
+            quadCase();
             /*
             if(label.equals("Quad"))
                 quadCase();
