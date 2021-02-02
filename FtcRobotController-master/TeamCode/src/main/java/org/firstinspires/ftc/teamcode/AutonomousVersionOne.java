@@ -31,12 +31,12 @@ public class AutonomousVersionOne extends LinearOpMode {
         waitForStart();
         while(opModeIsActive())
         {
-            drive(.5);
+            //drive(0.5);   //Initial Drive Forward
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
             sleep(1650); //change timing here for initial drive
 
-            drive(0);
+            drive(0);   //Stop Initial Drive Forward
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
             sleep(1000);
@@ -45,22 +45,102 @@ public class AutonomousVersionOne extends LinearOpMode {
             sleep(250);
 
             robot.input.setPower(0);
-            robot.output.setPower(1);
-            robot.output2.setPower(1);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1000);
+
+            robot.input.setPower(1);
             sleep(250);
+            //33+6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            robot.input.setPower(0);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1000);
 
             robot.input.setPower(1);
             sleep(350);
 
+            robot.input.setPower(0);
+            sleep(1000);
 
-            robot.output.setPower(1);
-            robot.output2.setPower(1);
-            sleep(1500);
-
-            robot.input.setPower(1);
-            sleep(350);
-
-            drive(.5);
+            drive(.25);
             sleep(350);
             
             STOP();
