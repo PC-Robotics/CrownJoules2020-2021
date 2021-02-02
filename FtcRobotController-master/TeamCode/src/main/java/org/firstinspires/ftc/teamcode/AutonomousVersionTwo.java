@@ -85,6 +85,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();
     String label = "null";
+    int endAuto = 20000000;
 
     @Override
     public void runOpMode() {
@@ -159,8 +160,12 @@ public class AutonomousVersionTwo extends LinearOpMode {
     //Deliver in the landing zone for all rings...
 
     public void quadCase(){
+        /**
+            Let's think about the overall logic here...
+            1 - shoot from left of the rings since we're going to have to put wobble goal anyways
+        */
         drive(.5);
-        sleep(800);
+        sleep(400);
 
         turn(.5); //45degrees
         sleep(400);
@@ -168,53 +173,14 @@ public class AutonomousVersionTwo extends LinearOpMode {
         drive(.5);
         sleep(800);
 
-        turn(-.5); //0degrees
+        turn(-1); //0degrees
         sleep(400);
 
-        drive(.5);
-        sleep(300);
+        shootThreeRings();
+
 
         STOP();
         sleep(1000);
-
-        /*
-            drive(.5);
-            robot.output.setPower(.9);
-            robot.output2.setPower(.9);
-            sleep(1650); //change timing here for initial drive
-
-            drive(0);
-            robot.output.setPower(.9);
-            robot.output2.setPower(.9);
-            sleep(1000);
-
-            robot.input.setPower(1);
-            sleep(250);
-
-            robot.input.setPower(0);
-            robot.output.setPower(1);
-            robot.output2.setPower(1);
-            sleep(250);
-
-            robot.input.setPower(1);
-            sleep(350);
-
-
-            robot.output.setPower(1);
-            robot.output2.setPower(1);
-            sleep(1500);
-
-            robot.input.setPower(1);
-            sleep(350);
-
-            drive(.5);
-            sleep(350);
-
-            STOP();
-            sleep(200000);
-
-         */
-
     }
 
     public void singleCase(){
@@ -222,7 +188,47 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     public void noRingCase(){
+        drive(0.5);   //Initial Drive Forward
+        robot.output.setPower(.9);
+        robot.output2.setPower(.9);
+        sleep(1650); //change timing here for initial drive
 
+        drive(0);   //Stop Initial Drive Forward
+        shootThreeRings();
+
+        drive(.25);
+        sleep(350);
+
+        STOP();
+        sleep(endAuto);
+    }
+
+    public void shootThreeRings(){
+        robot.output.setPower(.9);
+        robot.output2.setPower(.9);
+        sleep(1000);
+
+        robot.input.setPower(1);
+        sleep(250);
+
+        robot.input.setPower(0);
+        robot.output.setPower(.9);
+        robot.output2.setPower(.9);
+        sleep(1000);
+
+        robot.input.setPower(1);
+        sleep(250);
+
+        robot.input.setPower(0);
+        robot.output.setPower(.9);
+        robot.output2.setPower(.9);
+        sleep(1000);
+
+        robot.input.setPower(1);
+        sleep(350);
+
+        robot.input.setPower(0);
+        sleep(1000);
     }
 
     public void drive(double power) {

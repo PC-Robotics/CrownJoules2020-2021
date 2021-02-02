@@ -54,7 +54,7 @@ public class MecanumHardware {
         input.setDirection(DcMotor.Direction.REVERSE);
         output.setDirection(DcMotor.Direction.REVERSE);
         output2.setDirection(DcMotor.Direction.REVERSE);
-        wobble.setDirection(DcMotor.Direction.REVERSE);
+        wobble.setDirection(DcMotor.Direction.FORWARD);
 
 
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
