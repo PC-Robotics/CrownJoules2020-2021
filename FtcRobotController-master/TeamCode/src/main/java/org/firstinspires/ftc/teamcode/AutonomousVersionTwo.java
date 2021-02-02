@@ -26,11 +26,9 @@ package org.firstinspires.ftc.teamcode;
  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- *
  */
 
-
+//Note: Positive Turn turns Left
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -47,15 +45,24 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * Thoughts:
  *
  * Ring Scenarios:
- *
- *
+ *      Go around and possibly work with shooting at an angle....
+ *          TOWER
+ *              \
+ *               \
+ *                Robot
+
  *  1 RING
+ *      Detect ring and go right.
+ *
+ *
+ *
+ *
  *
  *  4 RINGS
  *
  *  0 RINGS
  */
-@Autonomous(name = "NewAuto")
+@Autonomous(name = "workingAuto")
 public class AutonomousVersionTwo extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -92,27 +99,30 @@ public class AutonomousVersionTwo extends LinearOpMode {
         if (tfod != null)
             tfod.activate();
 
-        // The TensorFlow software will scale the input images from the camera to a lower resolution.
-        // This can result in lower detection accuracy at longer distances (> 55cm or 22").
-        // If your target is at distance greater than 50 cm (20") you can adjust the magnification value
-        // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
-        // should be set to the value of the images used to create the TensorFlow Object Detection model
-        // (typically 1.78 or 16/9).
 
-        // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-        //tfod.setZoom(2.5, 1.78);
+
+            // The TensorFlow software will scale the input images from the camera to a lower resolution.
+            // This can result in lower detection accuracy at longer distances (> 55cm or 22").
+            // If your target is at distance greater than 50 cm (20") you can adjust the magnification value
+            // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
+            // should be set to the value of the images used to create the TensorFlow Object Detection model
+            // (typically 1.78 or 16/9).
+
+            // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
+            tfod.setZoom(2, 1.78);
+
 
         /** Wait for the game to begin */
-        telemetry.addData(">", "Let's get this bread...");
+        telemetry.addData(">", "Make sure this message pops up and then you're good to go!");
         telemetry.update();
         waitForStart();
 
+        //worst comes to worst we can make the while loop go through for a few times first and then start...
 
         while (opModeIsActive()) {
             robot.init(hardwareMap);
-
-
             STOP();
+
             if (tfod != null) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
@@ -128,15 +138,16 @@ public class AutonomousVersionTwo extends LinearOpMode {
                     telemetry.update();
                 }
             }
-            sleep(2000);
 
-            //just double to check if these strings are legit...
+
+
             if(label.equals("Quad"))
                 quadCase();
-            else if (label.equals("Single"))
+            else if(label.equals("Single"))
                 singleCase();
             else
                 noRingCase();
+
         }
 
         if(tfod != null)
@@ -144,13 +155,66 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     //remember that in each of these cases... the robot is actually at the white line...
+    //Let's try and deliver in the landing zone for 4 rings...
+    //Deliver in the landing zone for all rings...
 
     public void quadCase(){
-        drive(-1);
-        sleep(200);
+        drive(.5);
+        sleep(800);
 
-        turn(1);
+        turn(.5); //45degrees
         sleep(400);
+
+        drive(.5);
+        sleep(800);
+
+        turn(-.5); //0degrees
+        sleep(400);
+
+        drive(.5);
+        sleep(300);
+
+        STOP();
+        sleep(1000);
+
+        /*
+            drive(.5);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1650); //change timing here for initial drive
+
+            drive(0);
+            robot.output.setPower(.9);
+            robot.output2.setPower(.9);
+            sleep(1000);
+
+            robot.input.setPower(1);
+            sleep(250);
+
+            robot.input.setPower(0);
+            robot.output.setPower(1);
+            robot.output2.setPower(1);
+            sleep(250);
+
+            robot.input.setPower(1);
+            sleep(350);
+
+
+            robot.output.setPower(1);
+            robot.output2.setPower(1);
+            sleep(1500);
+
+            robot.input.setPower(1);
+            sleep(350);
+
+            drive(.5);
+            sleep(350);
+
+            STOP();
+            sleep(200000);
+
+         */
+
     }
 
     public void singleCase(){
@@ -209,7 +273,6 @@ public class AutonomousVersionTwo extends LinearOpMode {
      * Initialize the TensorFlow Object Detection engine.
      */
     private void initTfod() {
-
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
