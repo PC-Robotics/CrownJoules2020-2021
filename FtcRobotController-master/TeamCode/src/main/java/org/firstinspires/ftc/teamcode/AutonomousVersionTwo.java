@@ -184,7 +184,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
         sleep(400);
 
         shootThreeRings();
-        
+
         STOP();
         sleep(1000);
     }

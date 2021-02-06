@@ -56,7 +56,7 @@ public class AutonomousVersionOne extends LinearOpMode {
             robot.input.setPower(0);
             robot.output.setPower(.9);
             robot.output2.setPower(.9);
-            sleep(1000);
+            sleep(2000);
 
             robot.input.setPower(1);
             sleep(350);
