@@ -81,20 +81,6 @@ public class OnePlayerDrive extends LinearOpMode {
             telemetry.addData("bool up", gamepad1.dpad_up);
             telemetry.addData("bool down", gamepad1.dpad_down);
 
-
-            //Input Direction Toggle
-
-            //Shooter Power Toggle
-            /*
-            if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(1);
-                shooterPowerToggle = false;
-            }
-            else if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(0);
-                shooterPowerToggle = true;
-            }*/
-
             telemetry.addData("Driving motor direction toggle: ", directionToggle);
             telemetry.addData("Shooting Motor Direction (shouldn't need to use): ", motorToggle);
             telemetry.addData("Shooter Motor Power: ", motorCoefficient);

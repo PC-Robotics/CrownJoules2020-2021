@@ -4,20 +4,33 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
+
+import org.firstinspires.ftc.robotcore.external.Func;
+
 
 @TeleOp(name="TwoPlayerDrive")
 public class TwoPlayerDrive extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();   // Use a Pushbot's hardware
 
+    double batteryCurrent = 14.4;
+    final double batteryRelative = 12.56;
+    double batteryCoefficient =  batteryRelative / batteryCurrent;
+
     @Override
     public void runOpMode() {
+        boolean directionToggle = true;
         boolean motorToggle = true;
-        double motorCoefficient = .90;
+        boolean inputDirectionToggle = true;
+        boolean shooterPowerToggle = true;
+        double motorCoefficient = .80;
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
+
+
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
@@ -53,9 +66,8 @@ public class TwoPlayerDrive extends LinearOpMode {
 
 
             //Motor Coefficients
-            //gamepad2 section
             if (gamepad2.a)
-                motorCoefficient = 0.90;
+                motorCoefficient = 0.80;
             else if (gamepad2.b)
                 motorCoefficient = 1.0;
 
@@ -63,37 +75,34 @@ public class TwoPlayerDrive extends LinearOpMode {
                 robot.input.setPower(-1);
 
 
-            robot.input.setPower(gamepad2.right_trigger);
-            robot.output.setPower(gamepad2.left_trigger * motorCoefficient);
-            robot.output2.setPower(gamepad2.left_trigger * motorCoefficient);
+            robot.input.setPower(gamepad2.right_trigger * batteryCoefficient);
+            robot.output.setPower(gamepad2.left_trigger * motorCoefficient * batteryCoefficient);
+            robot.output2.setPower(gamepad2.left_trigger * motorCoefficient * batteryCoefficient);
 
             if(gamepad2.left_bumper)
-                robot.input.setPower(.90);
-            if(!gamepad2.dpad_up || !gamepad1.dpad_down)
-                robot.wobble.setPower(0);
+                robot.input.setPower(.90 * batteryCoefficient);
+            if(!gamepad2.dpad_up || !gamepad2.dpad_down)
+                robot.wobble.setPower(0 * batteryCoefficient);
             if(gamepad2.dpad_up)
-                robot.wobble.setPower(.3);
+                robot.wobble.setPower(.5 * batteryCoefficient);
             if(gamepad2.dpad_down)
-                robot.wobble.setPower(-.3);
+                robot.wobble.setPower(-.5 * batteryCoefficient);
 
-
-            //Input Direction Toggle
-            //Shooter Power Toggle
-            /*
-            if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(1);
-                shooterPowerToggle = false;
-            }
-            else if (gamepad1.y && shooterPowerToggle){
-                robot.output.setPower(0);
-                shooterPowerToggle = true;
-            }*/
-
-            telemetry.addData("Intake: ", gamepad2.right_trigger);
-            telemetry.addData("Shooting Motor Direction (shouldn't need to use): ", motorToggle);
-            telemetry.addData("Shooter Motor Power: ", gamepad2.left_trigger);
+            telemetry.addData("MotorCoefficient: ", motorCoefficient);
+            telemetry.addData("voltage", "%.1f volts", getBatteryVoltage()); //does it have to be a new Function?
 
             telemetry.update();
         }
+    }
+
+    public double getBatteryVoltage()
+    {
+        double result = Double.POSITIVE_INFINITY;
+
+        for(VoltageSensor sensor : hardwareMap.voltageSensor)
+            if(sensor.getVoltage() > 0)
+                result = Math.min(result, sensor.getVoltage());
+
+        return result;
     }
 }

@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CrownJoules2020-2021.iml" filepath="$PROJECT_DIR$/.idea/CrownJoules2020-2021.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.iml" />
     </modules>
   </component>
 </project>

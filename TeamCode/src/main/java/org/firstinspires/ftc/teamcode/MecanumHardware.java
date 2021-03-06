@@ -71,15 +71,15 @@ public class MecanumHardware {
         output.setPower(0);
         output2.setPower(0);
         leftFront.setPower(0);
-        rightFront.setPower(0); //
+        rightFront.setPower(0);
         leftBack.setPower(0);
         rightBack.setPower(0);
         wobble.setPower(0);
 
-        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         input.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         output.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         wobble.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

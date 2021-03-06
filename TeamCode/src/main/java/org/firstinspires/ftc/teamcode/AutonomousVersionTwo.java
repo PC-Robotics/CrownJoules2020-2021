@@ -34,6 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -62,7 +65,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  *
  *  0 RINGS
  */
-@Autonomous(name = "workingAuto")
+
+
+@Autonomous(name = "AUTO WIP")
 public class AutonomousVersionTwo extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
@@ -87,6 +92,9 @@ public class AutonomousVersionTwo extends LinearOpMode {
     String label = "null";
     int endAuto = 20000000;
 
+    static final double COUNTS_PER_REV = 28;
+    static final double COUNT_PER_INCH = COUNTS_PER_REV / (2.0 * Math.PI);
+
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
@@ -110,7 +118,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
             // (typically 1.78 or 16/9).
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            tfod.setZoom(2, 1.78);
+            tfod.setZoom(1.5, 1.78);
 
 
         /** Wait for the game to begin */
@@ -140,44 +148,31 @@ public class AutonomousVersionTwo extends LinearOpMode {
                 }
             }
 
-            quadCase();
-            /*
+            //we can make a boolean that just detects whether it has detected it...
+            //also worst comes to worst what's wrong with driving up slowly to detect it :P
+
+
             if(label.equals("Quad"))
                 quadCase();
             else if(label.equals("Single"))
-                singleCase();
+                drive(20);
             else
-                noRingCase();
-            */
+                STOP();
+
+
         }
 
         if(tfod != null)
             tfod.shutdown();
     }
 
-    //remember that in each of these cases... the robot is actually at the white line...
-    //Let's try and deliver in the landing zone for 4 rings...
-    //Deliver in the landing zone for all rings...
+
 
     public void quadCase(){
         /**
             Let's think about the overall logic here...
             1 - shoot from left of the rings since we're going to have to put wobble goal anyways
         */
-        drive(.5);
-        sleep(400);
-
-        turn(.5); //45degrees
-        sleep(400);
-
-        drive(.5);
-        sleep(400);
-
-        turn(-.5); //forwardfacing
-        sleep(400);
-
-        drive(.5);
-        sleep(1000);
 
 
         turn(-.5); //0degrees
@@ -194,16 +189,17 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     public void noRingCase(){
-        drive(0.5);   //Initial Drive Forward
-        robot.output.setPower(.9);
-        robot.output2.setPower(.9);
-        sleep(1650); //change timing here for initial drive
+        //negative turn is turn left
 
-        //Stop Initial Drive Forward
-        shootThreeRings();
+        drive(0);
+        robot.wobble.setPower(-.7);
+        sleep(1500);
 
-        drive(.25);
-        sleep(350);
+        robot.wobble.setPower(.3);
+        sleep(250);
+
+        drive(0);
+        sleep(750);
 
         STOP();
         sleep(endAuto);
@@ -211,38 +207,78 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void shootThreeRings(){
         STOP();
-        robot.output.setPower(.9);
-        robot.output2.setPower(.9);
+        robot.output.setPower(.85);
+        robot.output2.setPower(.85);
+        sleep(1500); //change timing here for initial drive
+
+        robot.input.setPower(1);
+        sleep(250);
+
+        robot.input.setPower(0);
+        robot.output.setPower(.85);
+        robot.output2.setPower(.85);
         sleep(1000);
 
         robot.input.setPower(1);
         sleep(250);
 
         robot.input.setPower(0);
-        robot.output.setPower(.9);
-        robot.output2.setPower(.9);
-        sleep(1000);
+        robot.output.setPower(.85);
+        robot.output2.setPower(.85);
+        sleep(500);
 
         robot.input.setPower(1);
-        sleep(250);
-
-        robot.input.setPower(0);
-        robot.output.setPower(.9);
-        robot.output2.setPower(.9);
         sleep(1000);
-
-        robot.input.setPower(1);
-        sleep(350);
 
         robot.input.setPower(0);
         sleep(1000);
+
     }
 
-    public void drive(double power) {
-        robot.leftFront.setPower(power);  //negative should stay because of the direction of the robot
+    public void drive(double... inches_then_power) {
+
+
+        double inches = 0;
+        double power = 5.0;
+
+        ArrayList<Double> newInputs = new ArrayList<>();
+        for(double input : inches_then_power)
+            newInputs.add(input);
+
+        if(newInputs.size() == 2)
+            power = newInputs.get(1);
+        inches = newInputs.get(0);
+
+        int newTarget = (int) (inches * COUNT_PER_INCH);
+
+        robot.leftFront.setTargetPosition(robot.leftFront.getCurrentPosition() + newTarget);
+        robot.rightFront.setTargetPosition(robot.rightFront.getCurrentPosition() + newTarget);
+        robot.leftBack.setTargetPosition(robot.leftBack.getCurrentPosition() + newTarget);
+        robot.rightBack.setTargetPosition(robot.rightBack.getCurrentPosition() + newTarget);
+
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.leftFront.setPower(power);
         robot.rightFront.setPower(power);
-        robot.rightBack.setPower(power);
         robot.leftBack.setPower(power);
+        robot.rightBack.setPower(power);
+
+        while (robot.leftFront.isBusy() &&
+                robot.rightFront.isBusy() &&
+                robot.leftBack.isBusy() &&
+                robot.rightBack.isBusy()) {
+            telemetry.addLine("Robot is currently running to position");
+            telemetry.update();
+        }
+
+        STOP();
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void STOP(){
@@ -261,6 +297,8 @@ public class AutonomousVersionTwo extends LinearOpMode {
         robot.leftBack.setPower(power);
         robot.rightFront.setPower(-power);
         robot.rightBack.setPower(-power);
+
+
     }
 
     /**
