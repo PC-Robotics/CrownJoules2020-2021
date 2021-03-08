@@ -92,7 +92,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
     String label = "null";
     int endAuto = 20000000;
 
-    static final double COUNTS_PER_REV = 28;
+    static final double COUNTS_PER_REV = 132;
     static final double COUNT_PER_INCH = COUNTS_PER_REV / (2.0 * Math.PI);
 
     @Override
@@ -118,15 +118,13 @@ public class AutonomousVersionTwo extends LinearOpMode {
             // (typically 1.78 or 16/9).
 
             // Uncomment the following line if you want to adjust the magnification and/or the aspect ratio of the input images.
-            tfod.setZoom(1.5, 1.78);
+            tfod.setZoom(2, 1.78);
 
 
         /** Wait for the game to begin */
         telemetry.addData(">", "Make sure this message pops up and then you're good to go!");
         telemetry.update();
         waitForStart();
-
-        //worst comes to worst we can make the while loop go through for a few times first and then start...
 
         while (opModeIsActive()) {
             robot.init(hardwareMap);
@@ -148,18 +146,15 @@ public class AutonomousVersionTwo extends LinearOpMode {
                 }
             }
 
-            //we can make a boolean that just detects whether it has detected it...
-            //also worst comes to worst what's wrong with driving up slowly to detect it :P
-
-
             if(label.equals("Quad"))
                 quadCase();
             else if(label.equals("Single"))
-                drive(20);
+                singleCase();
             else
                 STOP();
 
-
+            STOP();
+            sleep(endAuto);
         }
 
         if(tfod != null)
@@ -186,6 +181,35 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void singleCase(){
 
+        drive(60);
+        robot.wobble.setPower(-.7);
+        /*
+        Perhaps we are overcomplicating things...
+        drive(15);
+        turn(12); //turn right by 25 degrees is 12
+        drive(60);
+        turn(-15);
+
+        drive(20);
+        turn(-24);
+        drive(35);
+        turn(24);
+
+        robot.wobble.setPower(-.7);
+        sleep(2000);
+
+        robot.wobble.setPower(-.2);
+        sleep(250);
+
+        robot.wobble.setPower(.1);
+        sleep(100);
+
+        robot.wobble.setPower(1);
+        sleep(500);
+
+        robot.wobble.setPower(0);
+        sleep(300);
+        */
     }
 
     public void noRingCase(){
@@ -236,10 +260,8 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     public void drive(double... inches_then_power) {
-
-
         double inches = 0;
-        double power = 5.0;
+        double power = 0.2;
 
         ArrayList<Double> newInputs = new ArrayList<>();
         for(double input : inches_then_power)
@@ -251,10 +273,15 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
         int newTarget = (int) (inches * COUNT_PER_INCH);
 
-        robot.leftFront.setTargetPosition(robot.leftFront.getCurrentPosition() + newTarget);
-        robot.rightFront.setTargetPosition(robot.rightFront.getCurrentPosition() + newTarget);
-        robot.leftBack.setTargetPosition(robot.leftBack.getCurrentPosition() + newTarget);
-        robot.rightBack.setTargetPosition(robot.rightBack.getCurrentPosition() + newTarget);
+        int leftFrontTarget = robot.leftFront.getCurrentPosition() + newTarget;
+        int rightFrontTarget = robot.rightFront.getCurrentPosition() + newTarget;
+        int leftBackTarget = robot.leftBack.getCurrentPosition() + newTarget;
+        int rightBackTarget = robot.rightBack.getCurrentPosition() + newTarget;
+
+        robot.leftFront.setTargetPosition(leftFrontTarget);
+        robot.rightFront.setTargetPosition(rightFrontTarget);
+        robot.leftBack.setTargetPosition(leftBackTarget);
+        robot.rightBack.setTargetPosition(rightBackTarget);
 
         robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -270,7 +297,9 @@ public class AutonomousVersionTwo extends LinearOpMode {
                 robot.rightFront.isBusy() &&
                 robot.leftBack.isBusy() &&
                 robot.rightBack.isBusy()) {
-            telemetry.addLine("Robot is currently running to position");
+            telemetry.addData("Path1",  "Running to %7d", leftFrontTarget);
+            telemetry.addData("Path2",  "Running at %7d", robot.leftFront.getCurrentPosition());
+
             telemetry.update();
         }
 
@@ -280,6 +309,58 @@ public class AutonomousVersionTwo extends LinearOpMode {
         robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    public void turn(double... inches_then_power) {
+        double inches = 0;
+        double power = 0.2;
+
+        ArrayList<Double> newInputs = new ArrayList<>();
+        for(double input : inches_then_power)
+            newInputs.add(input);
+
+        if(newInputs.size() == 2)
+            power = newInputs.get(1);
+        inches = newInputs.get(0);
+
+        int newTarget = (int) (inches * COUNT_PER_INCH);
+
+        int leftFrontTarget = robot.leftFront.getCurrentPosition() - newTarget;
+        int rightFrontTarget = robot.rightFront.getCurrentPosition() + newTarget;
+        int leftBackTarget = robot.leftBack.getCurrentPosition() - newTarget;
+        int rightBackTarget = robot.rightBack.getCurrentPosition() + newTarget;
+
+        robot.leftFront.setTargetPosition(leftFrontTarget);
+        robot.rightFront.setTargetPosition(rightFrontTarget);
+        robot.leftBack.setTargetPosition(leftBackTarget);
+        robot.rightBack.setTargetPosition(rightBackTarget);
+
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.leftFront.setPower(power);
+        robot.rightFront.setPower(power);
+        robot.leftBack.setPower(power);
+        robot.rightBack.setPower(power);
+
+        while (robot.leftFront.isBusy() &&
+                robot.rightFront.isBusy() &&
+                robot.leftBack.isBusy() &&
+                robot.rightBack.isBusy()) {
+            telemetry.addData("Path1",  "Running to %7d", leftFrontTarget);
+            telemetry.addData("Path2",  "Running at %7d", robot.leftFront.getCurrentPosition());
+
+            telemetry.update();
+        }
+
+        STOP();
+        robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
 
     public void STOP(){
         int power = 0;
@@ -292,14 +373,6 @@ public class AutonomousVersionTwo extends LinearOpMode {
         robot.output2.setPower(0);
     }
 
-    public void turn(double power){
-        robot.leftFront.setPower(power);
-        robot.leftBack.setPower(power);
-        robot.rightFront.setPower(-power);
-        robot.rightBack.setPower(-power);
-
-
-    }
 
     /**
      * Initialize the Vuforia localization engine.
