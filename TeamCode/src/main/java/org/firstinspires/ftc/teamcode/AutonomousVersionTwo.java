@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,11 +95,13 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     static final double COUNTS_PER_REV = 132;
     static final double COUNT_PER_INCH = COUNTS_PER_REV / (2.0 * Math.PI);
+    double powerCoeffecient;
 
     @Override
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
+        robot.init(hardwareMap);
         initVuforia();
         initTfod();
         /**
@@ -126,8 +129,9 @@ public class AutonomousVersionTwo extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        powerCoeffecient = 13.80 / getBatteryVoltage();
+
         while (opModeIsActive()) {
-            robot.init(hardwareMap);
             STOP();
 
             if (tfod != null) {
@@ -146,12 +150,16 @@ public class AutonomousVersionTwo extends LinearOpMode {
                 }
             }
 
+
+            singleCase();
+            /*
             if(label.equals("Quad"))
                 quadCase();
             else if(label.equals("Single"))
                 singleCase();
             else
                 STOP();
+              */
 
             STOP();
             sleep(endAuto);
@@ -169,7 +177,6 @@ public class AutonomousVersionTwo extends LinearOpMode {
             1 - shoot from left of the rings since we're going to have to put wobble goal anyways
         */
 
-
         turn(-.5); //0degrees
         sleep(400);
 
@@ -180,9 +187,23 @@ public class AutonomousVersionTwo extends LinearOpMode {
     }
 
     public void singleCase(){
+        //relative to 12.90 V for reference...
 
-        drive(60);
-        robot.wobble.setPower(-.7);
+        drive(86);
+
+        robot.wobble.setPower(-.3);
+        sleep(1000);
+
+        robot.wobble.setPower(-.1);
+        sleep(2000);
+
+        robot.wobble.setPower(.7);
+        drive(-15);
+
+        robot.wobble.setPower(0);
+        shootThreeRings();
+        drive(6);
+
         /*
         Perhaps we are overcomplicating things...
         drive(15);
@@ -214,6 +235,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void noRingCase(){
         //negative turn is turn left
+        //relative to 13.8 volts
 
         drive(0);
         robot.wobble.setPower(-.7);
@@ -231,24 +253,24 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void shootThreeRings(){
         STOP();
-        robot.output.setPower(.85);
-        robot.output2.setPower(.85);
+        robot.output.setPower(.80 * powerCoeffecient);
+        robot.output2.setPower(.80 * powerCoeffecient);
         sleep(1500); //change timing here for initial drive
 
         robot.input.setPower(1);
         sleep(250);
 
         robot.input.setPower(0);
-        robot.output.setPower(.85);
-        robot.output2.setPower(.85);
+        robot.output.setPower(.80 * powerCoeffecient);
+        robot.output2.setPower(.80 * powerCoeffecient);
         sleep(1000);
 
         robot.input.setPower(1);
         sleep(250);
 
         robot.input.setPower(0);
-        robot.output.setPower(.85);
-        robot.output2.setPower(.85);
+        robot.output.setPower(.80 * powerCoeffecient);
+        robot.output2.setPower(.80 * powerCoeffecient);
         sleep(500);
 
         robot.input.setPower(1);
@@ -261,7 +283,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void drive(double... inches_then_power) {
         double inches = 0;
-        double power = 0.2;
+        double power = 0.2  * powerCoeffecient;
 
         ArrayList<Double> newInputs = new ArrayList<>();
         for(double input : inches_then_power)
@@ -403,6 +425,17 @@ public class AutonomousVersionTwo extends LinearOpMode {
         tfodParameters.minResultConfidence = 0.8f;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+    }
+
+    public double getBatteryVoltage()
+    {
+        double result = Double.POSITIVE_INFINITY;
+
+        for(VoltageSensor sensor : hardwareMap.voltageSensor)
+            if(sensor.getVoltage() > 0)
+                result = Math.min(result, sensor.getVoltage());
+
+        return result;
     }
 }
 

@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-@TeleOp(name="Tester")
+@Autonomous(name="Tester")
 public class Tester extends LinearOpMode {
 
     MecanumHardware robot = new MecanumHardware();   // Use a Pushbot's hardware
@@ -27,7 +28,7 @@ public class Tester extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
+            /*
             telemetry.addData("Intake: ", gamepad2.right_trigger);
             telemetry.addData("Shooter Motor Power: ", gamepad2.left_trigger);
             telemetry.addData("A: ", gamepad2.a);
@@ -39,8 +40,20 @@ public class Tester extends LinearOpMode {
             telemetry.addData("dpad up: ", gamepad2.dpad_up);
             telemetry.addData("dpad down", gamepad2.dpad_down);
             telemetry.addLine(gamepad2.toString());
-
+            */
+            telemetry.addLine("" + getBatteryVoltage());
             telemetry.update();
         }
+    }
+
+    public double getBatteryVoltage()
+    {
+        double result = Double.POSITIVE_INFINITY;
+
+        for(VoltageSensor sensor : hardwareMap.voltageSensor)
+            if(sensor.getVoltage() > 0)
+                result = Math.min(result, sensor.getVoltage());
+
+        return result;
     }
 }
