@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7f930a9ff8350cc954c6924fa4e9bd8/jetified-Hardware-6.2.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7f930a9ff8350cc954c6924fa4e9bd8/jetified-Hardware-6.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7f930a9ff8350cc954c6924fa4e9bd8/jetified-Hardware-6.2.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4e4e6a94d33d4c5a6e17ac8c91d1bef4/jetified-Hardware-6.2.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4e4e6a94d33d4c5a6e17ac8c91d1bef4/jetified-Hardware-6.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4e4e6a94d33d4c5a6e17ac8c91d1bef4/jetified-Hardware-6.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/Hardware/6.2.1/a416d0c2609ba9676cf8de081bef20fec351c42c/Hardware-6.2.1-javadoc.jar!/" />

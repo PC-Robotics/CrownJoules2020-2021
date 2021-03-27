@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60828a27da8a757706169f6686559068/jetified-Blocks-6.2.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60828a27da8a757706169f6686559068/jetified-Blocks-6.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/60828a27da8a757706169f6686559068/jetified-Blocks-6.2.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5a90088b7c8d16952c05ae5d5ee1e674/jetified-Blocks-6.2.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5a90088b7c8d16952c05ae5d5ee1e674/jetified-Blocks-6.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5a90088b7c8d16952c05ae5d5ee1e674/jetified-Blocks-6.2.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/Blocks/6.2.1/4bf100664c2be86f152ac4defd3b7474193ade35/Blocks-6.2.1-javadoc.jar!/" />

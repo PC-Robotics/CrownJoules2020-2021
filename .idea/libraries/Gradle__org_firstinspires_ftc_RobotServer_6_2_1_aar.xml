@@ -5,6 +5,10 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/402b88c7f913bb718e5ecf9423e290f7/jetified-RobotServer-6.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/402b88c7f913bb718e5ecf9423e290f7/jetified-RobotServer-6.2.1/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/402b88c7f913bb718e5ecf9423e290f7/jetified-RobotServer-6.2.1/jars/libs/Java-WebSocket-1.4.1-20190423.174615-6.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87fcef78bb3f6fa302e6e84a4c85b90b/jetified-RobotServer-6.2.1/jars/libs/Java-WebSocket-1.4.1-20190423.174615-6.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87fcef78bb3f6fa302e6e84a4c85b90b/jetified-RobotServer-6.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87fcef78bb3f6fa302e6e84a4c85b90b/jetified-RobotServer-6.2.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/87fcef78bb3f6fa302e6e84a4c85b90b/jetified-RobotServer-6.2.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/RobotServer/6.2.1/891f42afe90b6cab2f587973ff31c3159a769b1e/RobotServer-6.2.1-javadoc.jar!/" />

@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5ae81cbbba3484baf54977e7e7c50028/jetified-tfod-1.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5ae81cbbba3484baf54977e7e7c50028/jetified-tfod-1.0.2/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5ae81cbbba3484baf54977e7e7c50028/jetified-tfod-1.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6c3931027680628a48657f7793ec7366/jetified-tfod-1.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6c3931027680628a48657f7793ec7366/jetified-tfod-1.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6c3931027680628a48657f7793ec7366/jetified-tfod-1.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/tfod/1.0.2/27c64f8a5233e69d0bf0a004fb9f535d0c176181/tfod-1.0.2-javadoc.jar!/" />

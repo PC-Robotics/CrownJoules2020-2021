@@ -25,17 +25,18 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
+  <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../../TeamCode/build/intermediates/javac/debug/classes" />
     <output-test url="file://$MODULE_DIR$/../../../TeamCode/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../TeamCode">
       <sourceFolder url="file://$MODULE_DIR$/../../../TeamCode/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../TeamCode/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../TeamCode/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../TeamCode/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../TeamCode/build" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.1.0" level="project" />
