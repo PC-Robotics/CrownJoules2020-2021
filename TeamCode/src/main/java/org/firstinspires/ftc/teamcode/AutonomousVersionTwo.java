@@ -29,6 +29,7 @@ package org.firstinspires.ftc.teamcode;
  */
 
 //Note: Positive Turn turns Left
+//
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -111,8 +112,6 @@ public class AutonomousVersionTwo extends LinearOpMode {
         if (tfod != null)
             tfod.activate();
 
-
-
             // The TensorFlow software will scale the input images from the camera to a lower resolution.
             // This can result in lower detection accuracy at longer distances (> 55cm or 22").
             // If your target is at distance greater than 50 cm (20") you can adjust the magnification value
@@ -127,7 +126,9 @@ public class AutonomousVersionTwo extends LinearOpMode {
         /** Wait for the game to begin */
         telemetry.addData(">", "Make sure this message pops up and then you're good to go!");
         telemetry.update();
+
         waitForStart();
+        //it works with 12.63 and 13.80 as the relativity
 
         powerCoeffecient = 13.80 / getBatteryVoltage();
 
@@ -151,15 +152,13 @@ public class AutonomousVersionTwo extends LinearOpMode {
             }
 
 
-            singleCase();
-            /*
-            if(label.equals("Quad"))
-                quadCase();
-            else if(label.equals("Single"))
+
+            if(label.equals("Single"))
                 singleCase();
+            else if(label.equals("Quad"))
+                quadCase();
             else
-                STOP();
-              */
+                noRingCase();
 
             STOP();
             sleep(endAuto);
@@ -177,19 +176,12 @@ public class AutonomousVersionTwo extends LinearOpMode {
             1 - shoot from left of the rings since we're going to have to put wobble goal anyways
         */
 
-        turn(-.5); //0degrees
-        sleep(400);
-
+        drive(65);
         shootThreeRings();
 
-        STOP();
-        sleep(1000);
-    }
-
-    public void singleCase(){
-        //relative to 12.90 V for reference...
-
-        drive(86);
+        drive(35);
+        turn(-18);
+        drive(20);
 
         robot.wobble.setPower(-.3);
         sleep(1000);
@@ -197,81 +189,122 @@ public class AutonomousVersionTwo extends LinearOpMode {
         robot.wobble.setPower(-.1);
         sleep(2000);
 
-        robot.wobble.setPower(.7);
-        drive(-15);
+        robot.wobble.setPower(.1);
 
+        drive(-24);
+        turn(14);
+
+        robot.wobble.setPower(.7);
+        sleep(1000);
+
+        drive(-34);
         robot.wobble.setPower(0);
-        shootThreeRings();
-        drive(6);
+
+        turn(3);
+        drive(20);
 
         /*
-        Perhaps we are overcomplicating things...
-        drive(15);
-        turn(12); //turn right by 25 degrees is 12
-        drive(60);
-        turn(-15);
-
+        drive(100);
+        turn(-12);
         drive(20);
-        turn(-24);
-        drive(35);
-        turn(24);
 
-        robot.wobble.setPower(-.7);
+        robot.wobble.setPower(-.3);
+        sleep(1000);
+
+        robot.wobble.setPower(-.1);
         sleep(2000);
 
-        robot.wobble.setPower(-.2);
-        sleep(250);
+        robot.wobble.setPower(.1);
+
+        drive(-24);
+        turn(14);
+
+        robot.wobble.setPower(.7);
+        sleep(1000);
+
+        drive(-34);
+        robot.wobble.setPower(0);
+
+        turn(3);
+        shootThreeRings();
+        drive(20);
+        */
+    }
+
+    public void singleCase(){
+        //relative to 12.90 V for reference...
+        drive(65);
+        shootThreeRings();
+
+        drive(24);
+        turn(-7);
+
+        robot.wobble.setPower(-.3);
+        sleep(1000);
+
+        robot.wobble.setPower(-.1);
+        sleep(2000);
 
         robot.wobble.setPower(.1);
-        sleep(100);
+        drive(-10);
 
-        robot.wobble.setPower(1);
-        sleep(500);
+        robot.wobble.setPower(.7);
+        sleep(1000);
 
         robot.wobble.setPower(0);
-        sleep(300);
-        */
+        STOP();
     }
 
     public void noRingCase(){
         //negative turn is turn left
-        //relative to 13.8 volts
+        //relative to 14.10 Volts
+        drive(65);
+        shootThreeRings();
 
-        drive(0);
-        robot.wobble.setPower(-.7);
-        sleep(1500);
+        turn(-24);
+        robot.wobble.setPower(-.3);
+        sleep(2000);
 
-        robot.wobble.setPower(.3);
-        sleep(250);
+        robot.wobble.setPower(-.1);
+        sleep(2000);
 
-        drive(0);
-        sleep(750);
+        robot.wobble.setPower(.1);
+        sleep(1000);
 
+        drive(-15);
         STOP();
-        sleep(endAuto);
+        sleep(1000);
+
+        robot.wobble.setPower(.4);
+        sleep(1000);
+
+        robot.wobble.setPower(0);
+        turn(22);
+
+        drive(12);
     }
 
     public void shootThreeRings(){
         STOP();
-        robot.output.setPower(.80 * powerCoeffecient);
-        robot.output2.setPower(.80 * powerCoeffecient);
+        robot.output.setPower(.68 * powerCoeffecient);
+        robot.output2.setPower(.68 * powerCoeffecient);
         sleep(1500); //change timing here for initial drive
 
         robot.input.setPower(1);
         sleep(250);
 
         robot.input.setPower(0);
-        robot.output.setPower(.80 * powerCoeffecient);
-        robot.output2.setPower(.80 * powerCoeffecient);
-        sleep(1000);
+        robot.output.setPower(.68 * powerCoeffecient);
+        robot.output2.setPower(.68 * powerCoeffecient);
+        sleep(1500);
 
         robot.input.setPower(1);
         sleep(250);
 
         robot.input.setPower(0);
-        robot.output.setPower(.80 * powerCoeffecient);
-        robot.output2.setPower(.80 * powerCoeffecient);
-        sleep(500);
+        robot.output.setPower(.70 * powerCoeffecient);
+        robot.output2.setPower(.70 * powerCoeffecient);
+        sleep(1000);
 
         robot.input.setPower(1);
         sleep(1000);
@@ -280,6 +313,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
         sleep(1000);
 
     }
+
 
     public void drive(double... inches_then_power) {
         double inches = 0;
@@ -334,7 +368,7 @@ public class AutonomousVersionTwo extends LinearOpMode {
 
     public void turn(double... inches_then_power) {
         double inches = 0;
-        double power = 0.2;
+        double power = 0.2 * powerCoeffecient;
 
         ArrayList<Double> newInputs = new ArrayList<>();
         for(double input : inches_then_power)

@@ -42,6 +42,7 @@ public class TwoPlayerDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
             double motorCoeff = 1.2;
             double magnitude = Math.hypot(gamepad1.left_stick_x, -gamepad1.left_stick_y);
             double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
@@ -50,7 +51,6 @@ public class TwoPlayerDrive extends LinearOpMode {
             double frd = (magnitude * Math.sin(robotAngle) - rightX) * motorCoeff; //sin -
             double bld = (magnitude * Math.sin(robotAngle) + rightX) * motorCoeff; //sin
             double brd = (magnitude * Math.cos(robotAngle) - rightX) * motorCoeff; //cos
-
 
 
             robot.leftFront.setPower(fld);
@@ -64,7 +64,6 @@ public class TwoPlayerDrive extends LinearOpMode {
             telemetry.addData("rightBack", "%.2f", brd);
 
 
-
             //Motor Coefficients
             if (gamepad2.a)
                 motorCoefficient = 0.80;
@@ -74,10 +73,11 @@ public class TwoPlayerDrive extends LinearOpMode {
             if (gamepad2.right_bumper)
                 robot.input.setPower(-1);
 
-
-            robot.input.setPower(gamepad2.right_trigger * batteryCoefficient);
             robot.output.setPower(gamepad2.left_trigger * motorCoefficient * batteryCoefficient);
             robot.output2.setPower(gamepad2.left_trigger * motorCoefficient * batteryCoefficient);
+
+
+            robot.input.setPower(gamepad2.right_trigger * batteryCoefficient);
 
             if(gamepad2.left_bumper)
                 robot.input.setPower(.90 * batteryCoefficient);
@@ -90,8 +90,10 @@ public class TwoPlayerDrive extends LinearOpMode {
 
             telemetry.addData("MotorCoefficient: ", motorCoefficient);
             telemetry.addData("voltage", "%.1f volts", getBatteryVoltage()); //does it have to be a new Function?
-
+            telemetry.addData("", gamepad2.left_trigger);
+            telemetry.addData("", gamepad2.right_trigger);
             telemetry.update();
+
         }
     }
 

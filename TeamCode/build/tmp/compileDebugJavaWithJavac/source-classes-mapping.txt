@@ -14,6 +14,8 @@ org/firstinspires/ftc/teamcode/TankDriveOnePlayer.java
  org.firstinspires.ftc.teamcode.TankDriveOnePlayer
 org/firstinspires/ftc/teamcode/AutonomousVersionThree.java
  org.firstinspires.ftc.teamcode.AutonomousVersionThree
+org/firstinspires/ftc/teamcode/Demo.java
+ org.firstinspires.ftc.teamcode.Demo
 org/firstinspires/ftc/teamcode/Tester.java
  org.firstinspires.ftc.teamcode.Tester
 org/firstinspires/ftc/teamcode/BuildConfig.java
