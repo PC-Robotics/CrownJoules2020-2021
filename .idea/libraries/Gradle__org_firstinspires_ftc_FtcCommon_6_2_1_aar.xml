@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.firstinspires.ftc:FtcCommon:6.2.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98acefa3b00d15a6f24ce080e6180bd2/jetified-FtcCommon-6.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98acefa3b00d15a6f24ce080e6180bd2/jetified-FtcCommon-6.2.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/98acefa3b00d15a6f24ce080e6180bd2/jetified-FtcCommon-6.2.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/556758b7d421e4a3668621eaf410edd5/jetified-FtcCommon-6.2.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/556758b7d421e4a3668621eaf410edd5/jetified-FtcCommon-6.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/556758b7d421e4a3668621eaf410edd5/jetified-FtcCommon-6.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c833c8947a75e012f116c0b13c02637a/transformed/jetified-FtcCommon-6.2.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c833c8947a75e012f116c0b13c02637a/transformed/jetified-FtcCommon-6.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c833c8947a75e012f116c0b13c02637a/transformed/jetified-FtcCommon-6.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/FtcCommon/6.2.1/70af7c9222bf60ddc85be8a566fb4e022c5825d/FtcCommon-6.2.1-javadoc.jar!/" />

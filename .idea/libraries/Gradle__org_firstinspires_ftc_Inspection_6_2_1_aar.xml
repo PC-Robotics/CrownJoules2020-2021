@@ -1,12 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.firstinspires.ftc:Inspection:6.2.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a6509d1f15970ba729d1ee67678ca17f/jetified-Inspection-6.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a6509d1f15970ba729d1ee67678ca17f/jetified-Inspection-6.2.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a6509d1f15970ba729d1ee67678ca17f/jetified-Inspection-6.2.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f518e73e31be5de257ce9c07f81034d5/jetified-Inspection-6.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f518e73e31be5de257ce9c07f81034d5/jetified-Inspection-6.2.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f518e73e31be5de257ce9c07f81034d5/jetified-Inspection-6.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a1c4d36f554226abfc1b22fe12fae86e/transformed/jetified-Inspection-6.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a1c4d36f554226abfc1b22fe12fae86e/transformed/jetified-Inspection-6.2.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a1c4d36f554226abfc1b22fe12fae86e/transformed/jetified-Inspection-6.2.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/Inspection/6.2.1/90611da6b560605bae6693cf6707695affdd8608/Inspection-6.2.1-javadoc.jar!/" />

@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/CrownJoules2020-2021.iml" filepath="$PROJECT_DIR$/.idea/CrownJoules2020-2021.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.main.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/CrownJoules2020-2021.FtcRobotController.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.main.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/CrownJoules2020-2021.TeamCode.unitTest.iml" />
     </modules>
   </component>
 </project>
